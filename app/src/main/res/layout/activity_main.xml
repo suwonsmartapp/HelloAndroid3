@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.jsoh.myfirstandroidapp.MainActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#a1887f"
-        android:text="Hello Android"
+        android:layout_alignParentBottom="true"
+        android:text="Hello"
         android:textColor="#263238"
-        android:textSize="65sp" />
+        android:textSize="32sp" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#673ab7"
-        android:text="Hello Android"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Hello"
         android:textColor="#263238"
-        android:textSize="45sp" />
+        android:textSize="32sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#455a64"
-        android:text="Hello Android"
+        android:text="Hello"
         android:textColor="#263238"
-        android:textSize="45sp" />
+        android:textSize="32sp" />
 
 
-</LinearLayout>
+</RelativeLayout>
