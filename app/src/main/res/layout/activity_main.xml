@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jsoh.myfirstandroidapp.MainActivity">
 
     <TextView
@@ -12,5 +13,11 @@
         android:textColor="#263238"
         android:text="Hello AndroidHello AndroidHello Android"
         android:textSize="45sp"/>
+
+    <ImageView
+        android:src="@drawable/girl"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
