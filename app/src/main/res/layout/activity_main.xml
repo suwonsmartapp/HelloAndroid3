@@ -8,9 +8,8 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#673ab7"
+        android:layout_height="wrap_content"
+        android:background="#a1887f"
         android:text="Hello Android"
         android:textColor="#263238"
         android:textSize="65sp" />
@@ -26,9 +25,8 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#673ab7"
+        android:layout_height="wrap_content"
+        android:background="#455a64"
         android:text="Hello Android"
         android:textColor="#263238"
         android:textSize="45sp" />
