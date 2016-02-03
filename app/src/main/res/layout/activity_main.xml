@@ -6,6 +6,7 @@
     tools:context="com.jsoh.myfirstandroidapp.MainActivity">
 
     <TextView
+        android:id="@+id/text_view_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#a1887f"
@@ -29,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#455a64"
+        android:layout_above="@id/text_view_1"
         android:text="Hello"
         android:textColor="#263238"
         android:textSize="32sp" />
