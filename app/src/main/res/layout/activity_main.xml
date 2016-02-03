@@ -8,7 +8,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
+        android:background="#673ab7"
+        android:textColor="#263238"
         android:text="Hello AndroidHello AndroidHello Android"
         android:textSize="45sp"/>
 
