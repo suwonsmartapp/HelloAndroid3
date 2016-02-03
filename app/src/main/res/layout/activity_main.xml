@@ -8,16 +8,30 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="#673ab7"
+        android:text="Hello Android"
         android:textColor="#263238"
-        android:text="Hello AndroidHello AndroidHello Android"
-        android:textSize="45sp"/>
+        android:textSize="65sp" />
 
-    <ImageView
-        android:src="@drawable/girl"
-        android:scaleType="centerCrop"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#673ab7"
+        android:text="Hello Android"
+        android:textColor="#263238"
+        android:textSize="45sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#673ab7"
+        android:text="Hello Android"
+        android:textColor="#263238"
+        android:textSize="45sp" />
+
 
 </LinearLayout>
