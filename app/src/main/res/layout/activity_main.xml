@@ -1,39 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jsoh.myfirstandroidapp.MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/girl" />
+
     <TextView
+        android:layout_gravity="bottom"
+        android:gravity="right"
         android:id="@+id/text_view_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#a1887f"
-        android:layout_alignParentBottom="true"
         android:text="Hello"
         android:textColor="#263238"
         android:textSize="32sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#673ab7"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:text="Hello"
-        android:textColor="#263238"
-        android:textSize="32sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#455a64"
-        android:layout_above="@id/text_view_1"
-        android:text="Hello"
-        android:textColor="#263238"
-        android:textSize="32sp" />
-
-
-</RelativeLayout>
+</FrameLayout>
