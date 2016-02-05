@@ -14,7 +14,8 @@
 
     <TextView
         android:id="@+id/msg_text_view"
-        android:text=""
+        android:visibility="invisible"
+        android:text="체크됨"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
