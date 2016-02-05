@@ -3,12 +3,17 @@ package com.jsoh.myfirstandroidapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements
+        CompoundButton.OnCheckedChangeListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,19 +22,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 화면에 layout 표시
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.button2).setOnClickListener(this);
-        findViewById(R.id.button3).setOnClickListener(this);
+        mTextView = (TextView) findViewById(R.id.msg_text_view);
+        ((CheckBox) findViewById(R.id.check_box)).setOnCheckedChangeListener(this);
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button2:
-                Toast.makeText(MainActivity.this, "button2", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.button3:
-                Toast.makeText(MainActivity.this, "button3", Toast.LENGTH_SHORT).show();
-                break;
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Toast.makeText(MainActivity.this, "check : " + isChecked, Toast.LENGTH_SHORT).show();
+
+        // TextView에 글자를 변경
+        if (isChecked) {
+            mTextView.setText("체크됨");
+        } else {
+            mTextView.setText("");
         }
     }
 
