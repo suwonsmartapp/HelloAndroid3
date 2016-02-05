@@ -1,20 +1,17 @@
 
 package com.jsoh.myfirstandroidapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity implements
-        CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-
-    private TextView mTextView;
+    private EditText mNameEditText;
+    private EditText mAgeEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +20,25 @@ public class MainActivity extends AppCompatActivity implements
         // 화면에 layout 표시
         setContentView(R.layout.activity_main);
 
-        mTextView = (TextView) findViewById(R.id.msg_text_view);
-        ((CheckBox) findViewById(R.id.check_box)).setOnCheckedChangeListener(this);
+        // 이름, 나이
+        mNameEditText = (EditText) findViewById(R.id.name_edit_text);
+        mAgeEditText = (EditText) findViewById(R.id.age_edit_text);
+
+        // 이벤트
+        findViewById(R.id.next_activity_button).setOnClickListener(this);
+
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Toast.makeText(MainActivity.this, "check : " + isChecked, Toast.LENGTH_SHORT).show();
+    public void onClick(View v) {
+        // SecondActivity 로 전환하겠다는 intent
+        Intent intent = new Intent(this, SecondActivity.class);
 
-        // TextView에 글자를 변경
-        if (isChecked) {
-            mTextView.setVisibility(View.VISIBLE);
-        } else {
-            mTextView.setVisibility(View.INVISIBLE);
-        }
+        // 이름, 나이 가져와서 intent에 추가
+        intent.putExtra("name", mNameEditText.getText().toString());
+        intent.putExtra("age", mAgeEditText.getText().toString());
+
+        // intent의 정보를 토대로 다른 Activity를 시작
+        startActivity(intent);
     }
-
-    // // activity_main.xml 에 연결 됨
-    // public void onClick(View view) {
-    // Log.d(TAG, "클릭 잘 됨");
-    // Toast.makeText(MainActivity.this, "클릭 잘 됨", Toast.LENGTH_SHORT).show();
-    // }
 }
