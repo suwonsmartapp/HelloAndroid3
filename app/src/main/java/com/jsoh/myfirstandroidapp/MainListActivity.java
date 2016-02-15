@@ -48,6 +48,7 @@ public class MainListActivity extends ListActivity {
         // 메뉴 추가 부분
         addItem(myData, "버튼 이벤트", MainActivity.class);
         addItem(myData, "ScrollView", ScrollActivity.class);
+        addItem(myData, "암시적 인텐트", IntentActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
