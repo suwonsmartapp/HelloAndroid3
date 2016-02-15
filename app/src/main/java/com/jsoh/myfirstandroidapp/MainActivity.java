@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final int REQUEST_CODE_PICTURE = 1000;
+    public static final int REQUEST_CODE_CAMERA = 2000;
     private EditText mNameEditText;
     private EditText mAgeEditText;
 
@@ -39,6 +42,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("age", mAgeEditText.getText().toString());
 
         // intent의 정보를 토대로 다른 Activity를 시작
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_PICTURE);
+    }
+
+    // 결과를 처리
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_PICTURE
+                || resultCode == RESULT_OK
+                || data != null) {
+            // 사진을 선택
+            String result = data.getStringExtra("result");
+            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+
+        } else if (requestCode == REQUEST_CODE_CAMERA) {
+            // 사진찍어서 받을 때 처리
+        }
     }
 }
