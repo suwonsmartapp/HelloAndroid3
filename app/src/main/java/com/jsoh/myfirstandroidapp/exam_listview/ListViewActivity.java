@@ -18,6 +18,8 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         AdapterView.OnItemLongClickListener {
 
     private ListView mListView;
+    private List<String> mData;
+    private ArrayAdapter<String> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +30,17 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         mListView = (ListView) findViewById(R.id.list);
 
         // Data
-        List<String> data = new ArrayList<>();
+        mData = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            data.add("data " + i);
+            mData.add("data " + i);
         }
 
         // Adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        mAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                data);
+                mData);
 
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(mAdapter);
 
         // 클릭 이벤트
         mListView.setOnItemClickListener(this);
@@ -55,6 +57,14 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(ListViewActivity.this, "longClick : " + position, Toast.LENGTH_SHORT).show();
+
+        // 데이터 삭제
+        mData.remove(position);
+
+        // 화면 갱신 : Adapter에게 데이터 변경을 알려준다
+        // -> ListView에 새로운 내용을 반영
+        mAdapter.notifyDataSetChanged();
+
         return true;
     }
 }
