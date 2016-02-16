@@ -3,6 +3,7 @@
     package="com.jsoh.myfirstandroidapp">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,11 +22,8 @@
         <activity android:name=".ScrollActivity" />
         <activity android:name=".SecondActivity" />
         <activity android:name=".IntentActivity" />
-        <activity android:name=".exam_coffee.CoffeeActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+        <activity android:name=".exam_coffee.CoffeeActivity" />
+        <activity android:name=".exam_webview.WebViewActivity" />
     </application>
 
 </manifest>

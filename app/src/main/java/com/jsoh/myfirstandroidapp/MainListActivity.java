@@ -1,6 +1,7 @@
 package com.jsoh.myfirstandroidapp;
 
 import com.jsoh.myfirstandroidapp.exam_coffee.CoffeeActivity;
+import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -52,6 +53,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "ScrollView", ScrollActivity.class);
         addItem(myData, "암시적 인텐트", IntentActivity.class);
         addItem(myData, "커피 주문 예제", CoffeeActivity.class);
+        addItem(myData, "WebView 예제", WebViewActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
