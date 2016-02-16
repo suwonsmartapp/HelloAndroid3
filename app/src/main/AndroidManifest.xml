@@ -24,6 +24,7 @@
         <activity android:name=".IntentActivity" />
         <activity android:name=".exam_coffee.CoffeeActivity" />
         <activity android:name=".exam_webview.WebViewActivity" />
+        <activity android:name=".exam_listview.ListViewActivity"></activity>
     </application>
 
 </manifest>
