@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
     private List<String> mData;
     private ArrayAdapter<String> mAdapter;
 
+    private GridView mGridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
 
         // View
         mListView = (ListView) findViewById(R.id.list);
+        mGridView = (GridView) findViewById(R.id.grid);
 
         // Data
         mData = new ArrayList<>();
@@ -41,6 +45,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
                 mData);
 
         mListView.setAdapter(mAdapter);
+        mGridView.setAdapter(mAdapter);
 
         // 클릭 이벤트
         mListView.setOnItemClickListener(this);
