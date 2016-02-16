@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
 
     private GridView mGridView;
 
+    private Spinner mSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         // View
         mListView = (ListView) findViewById(R.id.list);
         mGridView = (GridView) findViewById(R.id.grid);
+        mSpinner = (Spinner) findViewById(R.id.spinner);
 
         // Data
         mData = new ArrayList<>();
@@ -46,6 +50,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
 
         mListView.setAdapter(mAdapter);
         mGridView.setAdapter(mAdapter);
+        mSpinner.setAdapter(mAdapter);
 
         // 클릭 이벤트
         mListView.setOnItemClickListener(this);
