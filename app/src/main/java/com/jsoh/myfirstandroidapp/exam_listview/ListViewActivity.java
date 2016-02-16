@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListViewActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener {
+        AdapterView.OnItemLongClickListener, AdapterView.OnItemSelectedListener {
 
     private ListView mListView;
     private List<String> mData;
@@ -57,6 +57,8 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
 
         // 롱 클릭 이벤트
         mListView.setOnItemLongClickListener(this);
+
+        mSpinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -76,5 +78,15 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         mAdapter.notifyDataSetChanged();
 
         return true;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
