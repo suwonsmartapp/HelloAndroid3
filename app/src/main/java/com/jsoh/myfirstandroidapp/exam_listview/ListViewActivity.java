@@ -30,6 +30,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
 
     private ArrayAdapter<String> mArrayAdapter;
     private SimpleAdapter mSimpleAdapter;
+    private MyAdapter mMyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,15 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
             map.put("description", "description " + i);
             mSimpleData.add(map);
         }
+        // MyData
+        List<MyItem> myData = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            if (i % 3 == 0) {
+                myData.add(new MyItem(R.mipmap.ic_launcher, "안드로이드" + i, "안드로이드입니다" + i));
+            } else {
+                myData.add(new MyItem(R.drawable.girl, "미소녀" + i, "정말\n정말\n예쁜 미소녀" + i));
+            }
+        }
 
         // ArrayAdapter
         mArrayAdapter = new ArrayAdapter<String>(this,
@@ -69,9 +79,11 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
                 new int[] {
                         android.R.id.text1, android.R.id.text2
                 });
+        // MyAdapter
+        mMyAdapter = new MyAdapter(this, myData);
 
-        mListView.setAdapter(mSimpleAdapter);
-        mGridView.setAdapter(mArrayAdapter);
+        mListView.setAdapter(mMyAdapter);
+        mGridView.setAdapter(mSimpleAdapter);
         mSpinner.setAdapter(mArrayAdapter);
 
         // 클릭 이벤트
