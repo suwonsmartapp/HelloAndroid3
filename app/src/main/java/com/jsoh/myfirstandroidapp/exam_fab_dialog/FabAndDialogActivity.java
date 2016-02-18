@@ -28,7 +28,7 @@ public class FabAndDialogActivity extends AppCompatActivity implements View.OnCl
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("제목");
         builder.setIcon(R.mipmap.ic_launcher);
-        builder.setMessage("메세지");
+//        builder.setMessage("메세지");
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -38,6 +38,18 @@ public class FabAndDialogActivity extends AppCompatActivity implements View.OnCl
             }
         });
         builder.setNegativeButton("닫기", null);
+//        builder.setSingleChoiceItems(new String[]{"a", "b", "c"}, 0, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(FabAndDialogActivity.this, "" + which, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        builder.setMultiChoiceItems(new String[]{"a", "b", "c"}, new boolean[]{false, false, false}, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                Toast.makeText(FabAndDialogActivity.this, "" + isChecked, Toast.LENGTH_SHORT).show();
+            }
+        });
         builder.show();
     }
 
