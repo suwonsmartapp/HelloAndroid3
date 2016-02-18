@@ -22,9 +22,14 @@
         <activity android:name=".ScrollActivity" />
         <activity android:name=".SecondActivity" />
         <activity android:name=".IntentActivity" />
-        <activity android:name=".exam_coffee.CoffeeActivity" />
+        <activity
+            android:name=".exam_coffee.CoffeeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".exam_webview.WebViewActivity" />
-        <activity android:name=".exam_listview.ListViewActivity"></activity>
+        <activity android:name=".exam_listview.ListViewActivity" />
+        <activity
+            android:name=".exam_lifecycle.LifeCycleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
 </manifest>
