@@ -31,7 +31,8 @@
             android:name=".exam_lifecycle.LifeCycleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".exam_fab_dialog.FabAndDialogActivity" />
-        <activity android:name=".exam_fragment.FragmentExamActivity"></activity>
+        <activity android:name=".exam_fragment.FragmentExamActivity" />
+        <activity android:name=".exam_fragment.exam1.Exam203Activity"></activity>
     </application>
 
 </manifest>
