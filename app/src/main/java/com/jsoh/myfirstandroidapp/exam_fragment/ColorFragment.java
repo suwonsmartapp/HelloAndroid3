@@ -19,8 +19,16 @@ public class ColorFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ColorFragment newInstance() {
-        return new ColorFragment();
+    public static ColorFragment newInstance(int color) {
+
+        ColorFragment fragment = new ColorFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("color", color);
+
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
     @Override
@@ -35,6 +43,12 @@ public class ColorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mImageView = (ImageView) view.findViewById(R.id.color_image);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            int color = bundle.getInt("color");
+            mImageView.setBackgroundColor(color);
+        }
     }
 
     public void setColor(int color) {
