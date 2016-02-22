@@ -50,6 +50,7 @@ public class FabAndDialogActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(FabAndDialogActivity.this, "" + isChecked, Toast.LENGTH_SHORT).show();
             }
         });
+        builder.setNeutralButton("중간버튼", null);
         builder.show();
     }
 

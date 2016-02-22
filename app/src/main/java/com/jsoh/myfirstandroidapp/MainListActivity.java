@@ -2,6 +2,7 @@ package com.jsoh.myfirstandroidapp;
 
 import com.jsoh.myfirstandroidapp.exam_coffee.CoffeeActivity;
 import com.jsoh.myfirstandroidapp.exam_fab_dialog.FabAndDialogActivity;
+import com.jsoh.myfirstandroidapp.exam_fragment.FragmentExamActivity;
 import com.jsoh.myfirstandroidapp.exam_lifecycle.LifeCycleActivity;
 import com.jsoh.myfirstandroidapp.exam_listview.ListViewActivity;
 import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
@@ -60,6 +61,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "ListView 예제", ListViewActivity.class);
         addItem(myData, "LifeCycle", LifeCycleActivity.class);
         addItem(myData, "Fab + dialog", FabAndDialogActivity.class);
+        addItem(myData, "fragment", FragmentExamActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
