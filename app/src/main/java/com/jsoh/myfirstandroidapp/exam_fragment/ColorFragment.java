@@ -13,6 +13,12 @@ import android.widget.ImageView;
 
 public class ColorFragment extends Fragment {
 
+    private ColorDataReceiveListener mListener;
+
+    public interface ColorDataReceiveListener {
+        void onDataReceive(String data);
+    }
+
     private ImageView mImageView;
 
     public ColorFragment() {
@@ -48,10 +54,19 @@ public class ColorFragment extends Fragment {
         if (bundle != null) {
             int color = bundle.getInt("color");
             mImageView.setBackgroundColor(color);
+
+            // Activity로 callback 발생 시킴
+            if (mListener != null) {
+                mListener.onDataReceive(String.valueOf(color));
+            }
         }
     }
 
     public void setColor(int color) {
         mImageView.setBackgroundColor(color);
+    }
+
+    public void setOnColorDataReceiveListener(ColorDataReceiveListener listener) {
+        mListener = listener;
     }
 }

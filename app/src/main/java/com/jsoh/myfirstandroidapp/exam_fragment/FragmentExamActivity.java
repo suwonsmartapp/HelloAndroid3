@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class FragmentExamActivity extends AppCompatActivity implements View.OnClickListener {
+public class FragmentExamActivity extends AppCompatActivity implements View.OnClickListener, ColorFragment.ColorDataReceiveListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,16 @@ public class FragmentExamActivity extends AppCompatActivity implements View.OnCl
                 (int) (Math.random() * 256));
 
         // 프래그먼트를 코드로 추가
+        ColorFragment fragment = ColorFragment.newInstance(randomColor);
+        fragment.setOnColorDataReceiveListener(this);
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contents, ColorFragment.newInstance(randomColor))
+                .replace(R.id.contents, fragment)
                 .commit();
+    }
+
+    @Override
+    public void onDataReceive(String data) {
+        Toast.makeText(FragmentExamActivity.this, data, Toast.LENGTH_SHORT).show();
     }
 }
