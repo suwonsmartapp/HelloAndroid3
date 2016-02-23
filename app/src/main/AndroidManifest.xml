@@ -33,7 +33,8 @@
         <activity android:name=".exam_fab_dialog.FabAndDialogActivity" />
         <activity android:name=".exam_fragment.FragmentExamActivity" />
         <activity android:name=".exam_fragment.exam1.Exam203Activity" />
-        <activity android:name=".exam_fragment.exam2.Exam212Activity"></activity>
+        <activity android:name=".exam_fragment.exam2.Exam212Activity" />
+        <activity android:name=".exam_viewpager.ScreenSlideActivity"></activity>
     </application>
 
 </manifest>
