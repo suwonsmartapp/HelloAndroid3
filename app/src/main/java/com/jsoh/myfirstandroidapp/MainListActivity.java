@@ -1,6 +1,7 @@
 package com.jsoh.myfirstandroidapp;
 
 import com.jsoh.myfirstandroidapp.exam_coffee.CoffeeActivity;
+import com.jsoh.myfirstandroidapp.exam_eventbus.EventBusActivity;
 import com.jsoh.myfirstandroidapp.exam_fab_dialog.FabAndDialogActivity;
 import com.jsoh.myfirstandroidapp.exam_fragment.FragmentExamActivity;
 import com.jsoh.myfirstandroidapp.exam_fragment.exam1.Exam203Activity;
@@ -68,6 +69,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "fragment - exam1", Exam203Activity.class);
         addItem(myData, "fragment - exam2", Exam212Activity.class);
         addItem(myData, "ViewPager", ScreenSlideActivity.class);
+        addItem(myData, "EventBus", EventBusActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
