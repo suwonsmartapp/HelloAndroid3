@@ -6,13 +6,18 @@ import com.jsoh.myfirstandroidapp.exam_fragment.ColorFragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-public class ScreenSlideActivity extends AppCompatActivity {
+public class ScreenSlideActivity extends AppCompatActivity implements
+        TabLayout.OnTabSelectedListener {
+    // TabLayout
+    private TabLayout mTabLayout;
+
     // View
     private ViewPager mViewPager;
 
@@ -25,12 +30,40 @@ public class ScreenSlideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_screen_slide);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
+        mTabLayout = (TabLayout) findViewById(R.id.tab);
+
+        // Tab 설정
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 1"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 2"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 3"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 4"));
+        // Tab 리스너 설정
+        mTabLayout.setOnTabSelectedListener(this);
 
         // Adapter
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
         // View 에 Adapter 붙이기
         mViewPager.setAdapter(mAdapter);
+
+        // ViewPager 와 TabLayout연결
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        // Tab을 선택했을 때 ViewPager 의 페이지를 이동
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
