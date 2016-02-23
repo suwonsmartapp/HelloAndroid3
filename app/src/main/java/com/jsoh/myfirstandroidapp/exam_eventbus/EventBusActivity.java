@@ -25,8 +25,16 @@ public class EventBusActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onEvent(String data) {
-        Toast.makeText(EventBusActivity.this, data, Toast.LENGTH_SHORT).show();
+    public void onDataReceived(MyEvent data) {
+        if (data instanceof MyEvent1) {
+            MyEvent1 event = (MyEvent1) data;
+            Toast.makeText(EventBusActivity.this, event.name + ", " + event.age, Toast.LENGTH_SHORT)
+                    .show();
+        } else if (data instanceof MyEvent2) {
+            MyEvent2 event = (MyEvent2) data;
+            Toast.makeText(EventBusActivity.this, event.isMarried + ", " + event.age,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -39,7 +47,9 @@ public class EventBusActivity extends AppCompatActivity {
     class MyClass {
 
         public void eventPublish() {
-            EventBus.getDefault().post("잘 됐다");
+            EventBus.getDefault().post(new MyEvent1(10, "꼬마"));
+
+            EventBus.getDefault().post(new MyEvent2(50, false));
         }
     }
 }
