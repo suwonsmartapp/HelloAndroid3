@@ -1,14 +1,14 @@
 
 package com.jsoh.myfirstandroidapp.exam_eventbus;
 
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
 import com.jsoh.myfirstandroidapp.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 public class EventBusActivity extends AppCompatActivity {
 

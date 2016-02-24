@@ -35,7 +35,8 @@
         <activity android:name=".exam_fragment.exam1.Exam203Activity" />
         <activity android:name=".exam_fragment.exam2.Exam212Activity" />
         <activity android:name=".exam_viewpager.ScreenSlideActivity" />
-        <activity android:name=".exam_eventbus.EventBusActivity"></activity>
+        <activity android:name=".exam_eventbus.EventBusActivity" />
+        <activity android:name=".exam_thread.ThreadActivity"></activity>
     </application>
 
 </manifest>
