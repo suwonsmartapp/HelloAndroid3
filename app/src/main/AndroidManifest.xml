@@ -36,7 +36,8 @@
         <activity android:name=".exam_fragment.exam2.Exam212Activity" />
         <activity android:name=".exam_viewpager.ScreenSlideActivity" />
         <activity android:name=".exam_eventbus.EventBusActivity" />
-        <activity android:name=".exam_thread.ThreadActivity"></activity>
+        <activity android:name=".exam_thread.ThreadActivity" />
+        <activity android:name=".exam_thread.AsyncTaskActivity" />
     </application>
 
 </manifest>

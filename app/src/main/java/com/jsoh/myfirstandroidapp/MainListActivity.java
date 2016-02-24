@@ -1,5 +1,12 @@
 package com.jsoh.myfirstandroidapp;
 
+import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
 import com.jsoh.myfirstandroidapp.exam_coffee.CoffeeActivity;
 import com.jsoh.myfirstandroidapp.exam_eventbus.EventBusActivity;
 import com.jsoh.myfirstandroidapp.exam_fab_dialog.FabAndDialogActivity;
@@ -8,16 +15,10 @@ import com.jsoh.myfirstandroidapp.exam_fragment.exam1.Exam203Activity;
 import com.jsoh.myfirstandroidapp.exam_fragment.exam2.Exam212Activity;
 import com.jsoh.myfirstandroidapp.exam_lifecycle.LifeCycleActivity;
 import com.jsoh.myfirstandroidapp.exam_listview.ListViewActivity;
+import com.jsoh.myfirstandroidapp.exam_thread.AsyncTaskActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.ThreadActivity;
 import com.jsoh.myfirstandroidapp.exam_viewpager.ScreenSlideActivity;
 import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
-
-import android.app.ListActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "ViewPager", ScreenSlideActivity.class);
         addItem(myData, "EventBus", EventBusActivity.class);
         addItem(myData, "Thread", ThreadActivity.class);
+        addItem(myData, "AsyncTask", AsyncTaskActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬

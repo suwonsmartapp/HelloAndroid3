@@ -1,8 +1,6 @@
 
 package com.jsoh.myfirstandroidapp.exam_thread;
 
-import com.jsoh.myfirstandroidapp.R;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.jsoh.myfirstandroidapp.R;
 
 public class ThreadActivity extends AppCompatActivity implements View.OnClickListener {
 
