@@ -11,11 +11,13 @@ public class MyReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
-            Toast.makeText(context, "충전 상태 변경 됨", Toast.LENGTH_SHORT).show();
+        if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+            Toast.makeText(context, "충전 연결 됨", Toast.LENGTH_SHORT).show();
 
             // 내가 수신 한 다음에 방송을 제거
             abortBroadcast();
+        } else if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {
+            Toast.makeText(context, "충전 해제 됨", Toast.LENGTH_SHORT).show();
         }
     }
 }
