@@ -38,6 +38,17 @@
         <activity android:name=".exam_eventbus.EventBusActivity" />
         <activity android:name=".exam_thread.ThreadActivity" />
         <activity android:name=".exam_thread.AsyncTaskActivity" />
+        <activity android:name=".exam_broadcast.BroadcastActivity" />
+
+        <receiver
+            android:name=".exam_broadcast.MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter android:priority="10000">
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

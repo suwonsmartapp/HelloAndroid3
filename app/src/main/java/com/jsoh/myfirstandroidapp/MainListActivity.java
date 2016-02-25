@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.jsoh.myfirstandroidapp.exam_broadcast.BroadcastActivity;
 import com.jsoh.myfirstandroidapp.exam_coffee.CoffeeActivity;
 import com.jsoh.myfirstandroidapp.exam_eventbus.EventBusActivity;
 import com.jsoh.myfirstandroidapp.exam_fab_dialog.FabAndDialogActivity;
@@ -74,6 +75,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "EventBus", EventBusActivity.class);
         addItem(myData, "Thread", ThreadActivity.class);
         addItem(myData, "AsyncTask", AsyncTaskActivity.class);
+        addItem(myData, "Broadcast Receiver", BroadcastActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
