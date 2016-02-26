@@ -16,6 +16,7 @@ import com.jsoh.myfirstandroidapp.exam_fragment.exam1.Exam203Activity;
 import com.jsoh.myfirstandroidapp.exam_fragment.exam2.Exam212Activity;
 import com.jsoh.myfirstandroidapp.exam_lifecycle.LifeCycleActivity;
 import com.jsoh.myfirstandroidapp.exam_listview.ListViewActivity;
+import com.jsoh.myfirstandroidapp.exam_parsing.JsonParsingActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.AsyncTaskActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.ThreadActivity;
 import com.jsoh.myfirstandroidapp.exam_viewpager.ScreenSlideActivity;
@@ -76,6 +77,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "Thread", ThreadActivity.class);
         addItem(myData, "AsyncTask", AsyncTaskActivity.class);
         addItem(myData, "Broadcast Receiver", BroadcastActivity.class);
+        addItem(myData, "Json Parsing", JsonParsingActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
