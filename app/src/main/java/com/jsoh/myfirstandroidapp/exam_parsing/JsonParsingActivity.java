@@ -1,12 +1,17 @@
 package com.jsoh.myfirstandroidapp.exam_parsing;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.jsoh.myfirstandroidapp.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +24,10 @@ import okhttp3.Response;
 
 public class JsonParsingActivity extends AppCompatActivity {
 
+    private static final String TAG = JsonParsingActivity.class.getSimpleName();
     private List<Map<String, String>> mData;
+
+    private OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,34 +44,49 @@ public class JsonParsingActivity extends AppCompatActivity {
                 new String[]{"name", "age"},
                 new int[]{android.R.id.text1, android.R.id.text2});
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // 파싱 시작
-                try {
-                    final String result = parsing("http://oh8112191.cafe24.com/test.json");
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(JsonParsingActivity.this, result, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        new ParsingAsyncTask().execute("http://oh8112191.cafe24.com/test.json");
     }
 
-    OkHttpClient client = new OkHttpClient();
-
-    String parsing(String url) throws IOException {
+    private String parsing(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         Response response = client.newCall(request).execute();
         return response.body().string();
+    }
+
+    private class ParsingAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            // 파싱 시작
+            String result = null;
+            try {
+                result = parsing(params[0]);
+
+                // { }
+                JSONObject jsonObject = new JSONObject(result);
+
+                // [ ]
+                JSONArray jsonArray = jsonObject.getJSONArray("person");
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String name = object.getString("name");
+                    int age = object.getInt("age");
+                    Log.d(TAG, name + ", " + age);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(JsonParsingActivity.this, result, Toast.LENGTH_SHORT).show();
+        }
     }
 }
