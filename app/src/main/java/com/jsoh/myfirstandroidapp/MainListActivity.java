@@ -21,6 +21,7 @@ import com.jsoh.myfirstandroidapp.exam_thread.AsyncTaskActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.ThreadActivity;
 import com.jsoh.myfirstandroidapp.exam_viewpager.ScreenSlideActivity;
 import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
+import com.jsoh.myfirstandroidapp.notepad.NoteMainActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "AsyncTask", AsyncTaskActivity.class);
         addItem(myData, "Broadcast Receiver", BroadcastActivity.class);
         addItem(myData, "Json Parsing", JsonParsingActivity.class);
+        addItem(myData, "메모장", NoteMainActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
