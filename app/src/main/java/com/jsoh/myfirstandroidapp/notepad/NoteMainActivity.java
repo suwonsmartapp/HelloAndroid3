@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.jsoh.myfirstandroidapp.R;
 import com.jsoh.myfirstandroidapp.notepad.activities.MemoEditActivity;
+import com.jsoh.myfirstandroidapp.notepad.fragments.MemoListFragment;
 
 public class NoteMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,6 +49,10 @@ public class NoteMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // 메모 리스트 표시
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contents, new MemoListFragment())
+                .commit();
     }
 
     @Override
