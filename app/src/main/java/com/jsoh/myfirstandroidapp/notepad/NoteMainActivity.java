@@ -1,9 +1,9 @@
 package com.jsoh.myfirstandroidapp.notepad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.jsoh.myfirstandroidapp.R;
-import com.jsoh.myfirstandroidapp.notepad.fragments.MemoEditFragment;
+import com.jsoh.myfirstandroidapp.notepad.activities.MemoEditActivity;
 
 public class NoteMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,8 +33,7 @@ public class NoteMainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(NoteMainActivity.this, MemoEditActivity.class));
             }
         });
 
@@ -49,10 +48,6 @@ public class NoteMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // 기본 화면
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contents, new MemoEditFragment())
-                .commit();
     }
 
     @Override
@@ -83,7 +78,7 @@ public class NoteMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete) {
             return true;
         }
 
