@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.jsoh.myfirstandroidapp.R;
+import com.jsoh.myfirstandroidapp.notepad.fragments.MemoEditFragment;
 
 public class NoteMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,6 +48,11 @@ public class NoteMainActivity extends AppCompatActivity
         // NavigationDrawer 메뉴 리스너 연결 부분
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // 기본 화면
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contents, new MemoEditFragment())
+                .commit();
     }
 
     @Override
@@ -91,18 +97,10 @@ public class NoteMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_memos) {
+            // TODO 메모 프래그먼트 표시
+        } else if (id == R.id.nav_settings) {
+            // TODO 설정 프래그먼트 표시
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
