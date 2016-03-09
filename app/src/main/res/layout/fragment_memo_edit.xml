@@ -14,7 +14,7 @@
     <EditText
         android:padding="8dp"
         android:background="#c6ff00"
-        android:id="@+id/contents_edit"
+        android:id="@+id/memo_edit"
         android:hint="내용"
         android:gravity="top"
         android:layout_width="match_parent"
