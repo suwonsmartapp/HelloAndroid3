@@ -21,7 +21,7 @@ import com.jsoh.myfirstandroidapp.exam_thread.AsyncTaskActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.ThreadActivity;
 import com.jsoh.myfirstandroidapp.exam_viewpager.ScreenSlideActivity;
 import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
-import com.jsoh.myfirstandroidapp.notepad.NoteMainActivity;
+import com.jsoh.myfirstandroidapp.notepad.activities.NoteMainActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
