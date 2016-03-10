@@ -1,5 +1,7 @@
 package com.jsoh.myfirstandroidapp.notepad.fragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.jsoh.myfirstandroidapp.R;
-import com.jsoh.myfirstandroidapp.notepad.adapters.MemoAdapter;
-import com.jsoh.myfirstandroidapp.notepad.models.Memo;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.jsoh.myfirstandroidapp.notepad.adapters.MemoCursorAdapter;
+import com.jsoh.myfirstandroidapp.notepad.db.MemoContract;
+import com.jsoh.myfirstandroidapp.notepad.db.MemoDbHelper;
 
 /**
  * Created by junsuk on 16. 3. 8..
@@ -32,10 +32,19 @@ public class MemoListFragment extends Fragment {
 
         ListView listView = (ListView) view.findViewById(R.id.list);
 
-        List<Memo> list = new ArrayList<>();
-        list.add(new Memo("타이틀", "ㅁㄴ아ㅓㄹㅁㅣㄴ얼미ㅏ넝ㄹㅣ마ㅓㄴ이럼ㅣㄴ어ㅏㄹㅁㅁㄴ아ㅓㄹㅁㅣㄴ얼미ㅏ넝ㄹㅣ마ㅓㄴ이럼ㅣㄴ어ㅏㄹㅁㅁㄴ아ㅓㄹㅁㅣㄴ얼미ㅏ넝ㄹㅣ마ㅓㄴ이럼ㅣㄴ어ㅏㄹㅁㅁㄴ아ㅓㄹㅁㅣㄴ얼미ㅏ넝ㄹㅣ마ㅓㄴ이럼ㅣㄴ어ㅏㄹㅁㅁㄴ아ㅓㄹㅁㅣㄴ얼미ㅏ넝ㄹㅣ마ㅓㄴ이럼ㅣㄴ어ㅏㄹㅁ", "2016-3-8"));
+        MemoDbHelper helper = new MemoDbHelper(getActivity());
+        SQLiteDatabase db = helper.getReadableDatabase();
 
-        MemoAdapter adapter = new MemoAdapter(getActivity(), list);
+        // select * from memo;
+        Cursor cursor = db.query(MemoContract.MemoEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        MemoCursorAdapter adapter = new MemoCursorAdapter(getActivity(), cursor);
 
         listView.setAdapter(adapter);
     }
