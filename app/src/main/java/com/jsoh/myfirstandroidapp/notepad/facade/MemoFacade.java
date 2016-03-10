@@ -2,6 +2,7 @@ package com.jsoh.myfirstandroidapp.notepad.facade;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jsoh.myfirstandroidapp.notepad.db.MemoContract;
@@ -22,6 +23,12 @@ public class MemoFacade {
         mHelper = new MemoDbHelper(context);
     }
 
+    /**
+     * 메모를 저장
+     * @param title
+     * @param memo
+     * @return
+     */
     public long insertMemo(String title, String memo) {
         // 쓰기 모드로 db 저장소를 얻기
         SQLiteDatabase db = mHelper.getWritableDatabase();
@@ -45,5 +52,22 @@ public class MemoFacade {
         }
 
         return -1;
+    }
+
+    /**
+     * 모든 메모를 얻기
+     * @return
+     */
+    public Cursor queryAllMemos() {
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+
+        // select * from memo;
+        return db.query(MemoContract.MemoEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
     }
 }

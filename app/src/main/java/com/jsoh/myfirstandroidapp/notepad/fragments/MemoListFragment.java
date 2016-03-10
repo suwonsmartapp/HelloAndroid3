@@ -1,7 +1,5 @@
 package com.jsoh.myfirstandroidapp.notepad.fragments;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +11,7 @@ import android.widget.ListView;
 
 import com.jsoh.myfirstandroidapp.R;
 import com.jsoh.myfirstandroidapp.notepad.adapters.MemoCursorAdapter;
-import com.jsoh.myfirstandroidapp.notepad.db.MemoContract;
-import com.jsoh.myfirstandroidapp.notepad.db.MemoDbHelper;
+import com.jsoh.myfirstandroidapp.notepad.facade.MemoFacade;
 
 /**
  * Created by junsuk on 16. 3. 8..
@@ -32,19 +29,9 @@ public class MemoListFragment extends Fragment {
 
         ListView listView = (ListView) view.findViewById(R.id.list);
 
-        MemoDbHelper helper = new MemoDbHelper(getActivity());
-        SQLiteDatabase db = helper.getReadableDatabase();
+        MemoFacade facade = new MemoFacade(getActivity());
 
-        // select * from memo;
-        Cursor cursor = db.query(MemoContract.MemoEntry.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-        MemoCursorAdapter adapter = new MemoCursorAdapter(getActivity(), cursor);
+        MemoCursorAdapter adapter = new MemoCursorAdapter(getActivity(), facade.queryAllMemos());
 
         listView.setAdapter(adapter);
     }
