@@ -83,4 +83,17 @@ public class MemoFacade {
                 whereClause,
                 whereArgs);
     }
+
+    /**
+     * 메모를 삭제합니다
+     * @param whereClause where조건
+     * @param whereArgs
+     * @return
+     */
+    public int deleteMemo(String whereClause, String[] whereArgs) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        return db.delete(MemoContract.MemoEntry.TABLE_NAME,
+                whereClause,
+                whereArgs);
+    }
 }

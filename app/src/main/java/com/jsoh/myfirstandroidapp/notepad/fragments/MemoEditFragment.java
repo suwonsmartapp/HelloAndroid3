@@ -1,13 +1,16 @@
 package com.jsoh.myfirstandroidapp.notepad.fragments;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -81,7 +84,38 @@ public class MemoEditFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.note_main, menu);
+        if (isEditMode) {
+            inflater.inflate(R.menu.note_main, menu);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("메모 삭제")
+                .setMessage("메모를 삭제하시겠습니까?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int deleted = mMemoFacade.deleteMemo("_id=" + mId, null);
+                        if (deleted > 0) {
+                            Toast.makeText(getActivity(), "삭제 되었습니다", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                        }
+                    }
+                })
+                .setNegativeButton("아니오", null);
+                builder.show();
+
+                break;
+            case R.id.action_export:
+                // TODO 내보내기
+                break;
+        }
+        return true;
     }
 
     @Override
