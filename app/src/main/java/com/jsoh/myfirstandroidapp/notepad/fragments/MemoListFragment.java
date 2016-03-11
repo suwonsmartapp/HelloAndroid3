@@ -23,6 +23,10 @@ import com.jsoh.myfirstandroidapp.notepad.models.Memo;
  * Created by junsuk on 16. 3. 8..
  */
 public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener {
+
+    private MemoCursorAdapter mAdapter;
+    private MemoFacade mFacade;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,12 +39,20 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
         ListView listView = (ListView) view.findViewById(R.id.list);
 
-        MemoFacade facade = new MemoFacade(getActivity());
+        mFacade = new MemoFacade(getActivity());
 
-        MemoCursorAdapter adapter = new MemoCursorAdapter(getActivity(), facade.queryAllMemos());
+        mAdapter = new MemoCursorAdapter(getActivity(), null);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // BaseAdapter 에서의 데이터 변경 후 notifyDataSetChanged 와 동일
+        mAdapter.swapCursor(mFacade.queryAllMemos());
     }
 
     @Override
