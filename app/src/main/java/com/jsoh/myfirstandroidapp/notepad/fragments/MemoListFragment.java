@@ -62,7 +62,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         Memo memo = Memo.cursorToMemo(cursor);
 
         Intent intent = new Intent(getActivity(), MemoEditActivity.class);
-        intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(0));
+        intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
         intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE, memo.getTitle());
         intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO, memo.getMemo());
         startActivity(intent);

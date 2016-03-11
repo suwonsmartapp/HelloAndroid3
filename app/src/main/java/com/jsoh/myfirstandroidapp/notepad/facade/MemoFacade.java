@@ -70,4 +70,17 @@ public class MemoFacade {
                 null,
                 null);
     }
+
+    public int updateMemo(ContentValues values, String whereClause, String[] whereArgs) {
+        // UPDATE Memo
+        // SET title='title', memo='memo'
+        // WHERE title='test';
+
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+
+        return db.update(MemoContract.MemoEntry.TABLE_NAME,
+                values,
+                whereClause,
+                whereArgs);
+    }
 }

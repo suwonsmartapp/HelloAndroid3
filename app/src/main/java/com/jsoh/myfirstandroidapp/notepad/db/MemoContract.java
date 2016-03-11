@@ -13,9 +13,9 @@ public class MemoContract {
         public static final String COLUMN_NAME_MEMO = "memo";
         public static final String COLUMN_NAME_DATE = "date";
 
-        // CREATE TABLE Memo (_id INTEGER AUTOINCREMENT PRIMARY KEY, title TEXT DEFAULT '제목없음', memo TEXT, date TEXT NOT NULL);
+        // CREATE TABLE Memo (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT DEFAULT '제목없음', memo TEXT, date TEXT NOT NULL);
         public static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + MemoEntry.TABLE_NAME + " (" +
-                MemoEntry._ID + " INTEGER AUTO INCREMENT PRIMARY KEY, " +
+                MemoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MemoEntry.COLUMN_NAME_TITLE + " TEXT DEFAULT '제목없음', " +
                 MemoEntry.COLUMN_NAME_MEMO + " TEXT, " +
                 MemoEntry.COLUMN_NAME_DATE + " TEXT NOT NULL" +
