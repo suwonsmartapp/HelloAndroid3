@@ -42,11 +42,8 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("메모 리스트");
-
         mListView = (ListView) view.findViewById(R.id.list);
-
         mFacade = new MemoFacade(getActivity());
-
         mAdapter = new MemoCursorAdapter(getContext(), null) {
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
@@ -82,7 +79,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE, memo.getTitle());
             intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO, memo.getMemo());
             startActivity(intent);
-        } else if (mMultiChecked) {
+        } else if (mMultiChecked == true) {
             Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
             int mPosition = cursor.getPosition();
 
@@ -93,17 +90,6 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             }
 
             mAdapter.notifyDataSetChanged();
-//            if (mIsCheckedList[mPosition]) {
-//                mAdapter = new MemoCursorAdapter(getContext(), cursor) {
-//                    @Override
-//                    public void bindView(View view, Context context, Cursor cursor) {
-//                        super.bindView(view, context, cursor);
-//                        view.setBackgroundColor(Color.BLUE);
-//                    }
-//                };
-//            } else {
-//                view.setBackgroundColor(Color.WHITE);
-//            }
         }
     }
 
