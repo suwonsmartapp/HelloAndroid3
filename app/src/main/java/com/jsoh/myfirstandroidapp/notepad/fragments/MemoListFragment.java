@@ -167,14 +167,14 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
                 Log.d(TAG, "onQueryTextChange : " + newText);
 
 //                String selection2 = "title LIKE '%"++"%' OR memo LIKE %?%"
-                String selection = "? LIKE '%" + newText + "%' OR ? LIKE '%" + newText + "%'";
+                String selection = "title LIKE '%" + newText + "%' OR memo LIKE '%" + newText + "%'";
                 String[] selectionArgs = new String[] {
                         MemoContract.MemoEntry.COLUMN_NAME_TITLE,
                         MemoContract.MemoEntry.COLUMN_NAME_MEMO
                         };
                 Cursor cursor = mMemoFacade.queryMemos(null,
                         selection,
-                        selectionArgs,
+                        null,
                         null,
                         null,
                         null);
