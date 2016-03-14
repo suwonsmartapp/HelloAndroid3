@@ -7,13 +7,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.jsoh.myfirstandroidapp.R;
 import com.jsoh.myfirstandroidapp.notepad.activities.MemoEditActivity;
@@ -22,16 +26,20 @@ import com.jsoh.myfirstandroidapp.notepad.db.MemoContract;
 import com.jsoh.myfirstandroidapp.notepad.facade.MemoFacade;
 import com.jsoh.myfirstandroidapp.notepad.models.Memo;
 
+import java.util.Arrays;
+
 /**
  * Created by junsuk on 16. 3. 8..
  */
-public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnKeyListener {
 
+    private static final String TAG = MemoListFragment.class.getSimpleName();
     private MemoCursorAdapter mAdapter;
     private MemoFacade mFacade;
     private ListView mListView;
     private boolean mMultiChecked;
     private boolean[] mIsCheckedList;
+    private int mSelectionCount = 0;
 
     @Nullable
     @Override
@@ -41,7 +49,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("메모 리스트");
+        setTitle("메모 리스트");
         mListView = (ListView) view.findViewById(R.id.list);
         mFacade = new MemoFacade(getActivity());
         mAdapter = new MemoCursorAdapter(getContext(), null) {
@@ -59,6 +67,12 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
+
+        // fragment에서의 back key 처리
+        // http://stackoverflow.com/questions/7992216/android-fragment-handle-back-button-press
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(this);
     }
 
     @Override
@@ -79,14 +93,24 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE, memo.getTitle());
             intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO, memo.getMemo());
             startActivity(intent);
-        } else if (mMultiChecked == true) {
+        } else {
             Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
             int mPosition = cursor.getPosition();
 
             if (mIsCheckedList[mPosition] == true) {
                 mIsCheckedList[mPosition] = false;
-            } else if (mIsCheckedList[mPosition] == false) {
+                mSelectionCount--;
+            } else {
                 mIsCheckedList[mPosition] = true;
+                mSelectionCount++;
+            }
+            setTitle("" + mSelectionCount);
+
+            // 멀티체크 모드 벗어나기
+            if (mSelectionCount < 1) {
+                mMultiChecked = false;
+                setTitle("메모 리스트");
+                setHasOptionsMenu(false);
             }
 
             mAdapter.notifyDataSetChanged();
@@ -98,7 +122,59 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
         mIsCheckedList = new boolean[cursor.getCount()];
         mMultiChecked = true;
-        Toast.makeText(getActivity(), "초이스 모드 활성화", Toast.LENGTH_SHORT).show();
+
+        // 현재 롱클릭 한 아이템을 선택 하고 다시 그리기
+        mIsCheckedList[position] = true;
+        mAdapter.notifyDataSetChanged();
+        // 선택 된 갯수 초기화
+        mSelectionCount = 1;
+        // Title 변경
+        setTitle("" + mSelectionCount);
+
+        // 옵션 메뉴 설정
+        setHasOptionsMenu(true);
         return true;
+    }
+
+    private void setTitle(String title) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.note_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_delete) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (mMultiChecked) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                mMultiChecked = false;
+                setTitle("메모 리스트");
+                setHasOptionsMenu(false);
+
+                // 모두 false로 셋팅
+                Arrays.fill(mIsCheckedList, false);
+
+                mAdapter.notifyDataSetChanged();
+                return true;
+            }
+        }
+        return false;
     }
 }
