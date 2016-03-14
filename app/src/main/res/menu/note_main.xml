@@ -10,4 +10,12 @@
         android:id="@+id/action_export"
         android:title="내보내기"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_search"
+        android:title="검색"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom" />
+
 </menu>

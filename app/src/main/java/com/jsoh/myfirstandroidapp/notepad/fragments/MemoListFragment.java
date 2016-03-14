@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,6 +42,8 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     private boolean mMultiChecked;
     private boolean[] mIsCheckedList;
     private int mSelectionCount = 0;
+
+    private MemoFacade mMemoFacade;
 
     @Nullable
     @Override
@@ -73,6 +77,8 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(this);
+
+        mMemoFacade = new MemoFacade(getActivity());
     }
 
     @Override
@@ -146,6 +152,36 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.note_main, menu);
+
+        // SearchView
+        // https://pluu.github.io/blog/android/2015/05/19/android-toolbar-searchview/
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d(TAG, "onQueryTextChange : " + newText);
+
+//                String selection2 = "title LIKE '%"++"%' OR memo LIKE %?%"
+                String selection = "? LIKE '%" + newText + "%' OR ? LIKE '%" + newText + "%'";
+                String[] selectionArgs = new String[] {
+                        MemoContract.MemoEntry.COLUMN_NAME_TITLE,
+                        MemoContract.MemoEntry.COLUMN_NAME_MEMO
+                        };
+                Cursor cursor = mMemoFacade.queryMemos(null,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        null);
+                mAdapter.swapCursor(cursor);
+                return true;
+            }
+        });
     }
 
     @Override
