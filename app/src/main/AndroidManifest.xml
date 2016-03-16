@@ -56,7 +56,13 @@
             android:name=".notepad.activities.NoteMainActivity"
             android:label="@string/title_activity_note_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".notepad.activities.MemoEditActivity"></activity>
+        <activity android:name=".notepad.activities.MemoEditActivity" />
+
+        <provider
+            android:name=".notepad.provider.MemoContentProvider"
+            android:authorities="com.jsoh.myfirstandroidapp.provider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
