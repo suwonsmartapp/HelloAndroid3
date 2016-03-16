@@ -18,7 +18,7 @@ public class MemoContract {
                 MemoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MemoEntry.COLUMN_NAME_TITLE + " TEXT DEFAULT '제목없음', " +
                 MemoEntry.COLUMN_NAME_MEMO + " TEXT, " +
-                MemoEntry.COLUMN_NAME_DATE + " TEXT NOT NULL" +
+                MemoEntry.COLUMN_NAME_DATE + " TEXT DEFAULT CURRENT_TIMESTAMP" +
                 ");";
     }
 
