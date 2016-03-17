@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.jsoh.myfirstandroidapp.R;
+import com.suwonsmartapp.abl.AsyncBitmapLoader;
 
 public class PictureActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -57,10 +58,25 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
     private static class PictureCursorAdapter extends CursorAdapter {
 
         private final LayoutInflater inflator;
+        private AsyncBitmapLoader mAsyncBitmapLoader;
 
         public PictureCursorAdapter(Context context, Cursor c) {
             super(context, c, false);
             inflator = LayoutInflater.from(context);
+            mAsyncBitmapLoader = new AsyncBitmapLoader(context);
+            mAsyncBitmapLoader.setBitmapLoadListener(new AsyncBitmapLoader.BitmapLoadListener() {
+                @Override
+                public Bitmap getBitmap(int position) {
+                    // Background Thread
+                    Cursor cursor = (Cursor) getItem(position);
+                    String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;   // 2의 배수, 큰 값일 수록 이미지 크기가 작아짐
+
+                    return BitmapFactory.decodeFile(path, options);
+                }
+            });
         }
 
         @Override
@@ -75,13 +91,7 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             ViewHolder holder = (ViewHolder) view.getTag();
-            String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 4;   // 2의 배수, 큰 값일 수록 이미지 크기가 작아짐
-            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-
-            holder.imageView.setImageBitmap(bitmap);
+            mAsyncBitmapLoader.loadBitmap(cursor.getPosition(), holder.imageView);
         }
 
         static class ViewHolder {
