@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -28,7 +31,8 @@ import com.jsoh.myfirstandroidapp.notepad.facade.MemoFacade;
 import com.jsoh.myfirstandroidapp.notepad.models.Memo;
 import com.jsoh.myfirstandroidapp.notepad.provider.MemoContentProvider;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by junsuk on 16. 3. 8..
@@ -40,7 +44,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     private MemoFacade mFacade;
     private ListView mListView;
     private boolean mMultiChecked;
-    private boolean[] mIsCheckedList;
+    private ArrayList<Boolean> mIsCheckedList;
     private int mSelectionCount = 0;
 
     private MemoFacade mMemoFacade;
@@ -80,19 +84,28 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         view.setOnKeyListener(this);
 
         mMemoFacade = new MemoFacade(getActivity());
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        // Loader 시작
+        getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+            @Override
+            public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                // Background Thread
+                // MemoContentProvider 를 통해 query 를 수행한다
+                return new CursorLoader(getActivity(), MemoContentProvider.CONTENT_URI,
+                        null, null, null, null);
+            }
 
-        // BaseAdapter 에서의 데이터 변경 후 notifyDataSetChanged 와 동일
-        Cursor cursor = getActivity().getContentResolver().query(MemoContentProvider.CONTENT_URI,
-                null,
-                null,
-                null,
-                null);
-        mAdapter.swapCursor(cursor);
+            @Override
+            public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                // UI Thread
+                mAdapter.swapCursor(data);
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Cursor> loader) {
+                mAdapter.swapCursor(null);
+            }
+        });
     }
 
     @Override
@@ -107,13 +120,12 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             startActivity(intent);
         } else {
             Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
-            int mPosition = cursor.getPosition();
 
-            if (mIsCheckedList[mPosition] == true) {
-                mIsCheckedList[mPosition] = false;
+            if (mIsCheckedList.get(position) == true) {
+                mIsCheckedList.set(position, false);
                 mSelectionCount--;
             } else {
-                mIsCheckedList[mPosition] = true;
+                mIsCheckedList.set(position, true);
                 mSelectionCount++;
             }
             setTitle("" + mSelectionCount);
@@ -132,11 +144,14 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, final long id) {
         Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
-        mIsCheckedList = new boolean[cursor.getCount()];
+        mIsCheckedList = new ArrayList<>();
+        for (int i = 0; i < cursor.getCount(); i++) {
+            mIsCheckedList.add(false);
+        }
         mMultiChecked = true;
 
         // 현재 롱클릭 한 아이템을 선택 하고 다시 그리기
-        mIsCheckedList[position] = true;
+        mIsCheckedList.set(position, true);
         mAdapter.notifyDataSetChanged();
         // 선택 된 갯수 초기화
         mSelectionCount = 1;
@@ -206,7 +221,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
                 setHasOptionsMenu(false);
 
                 // 모두 false로 셋팅
-                Arrays.fill(mIsCheckedList, false);
+                Collections.fill(mIsCheckedList, false);
 
                 mAdapter.notifyDataSetChanged();
                 return true;
