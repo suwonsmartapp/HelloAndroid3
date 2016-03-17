@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    // sdcard
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -63,6 +66,8 @@
             android:authorities="com.jsoh.myfirstandroidapp.provider"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".load_picture.PictureActivity"></activity>
     </application>
 
 </manifest>
