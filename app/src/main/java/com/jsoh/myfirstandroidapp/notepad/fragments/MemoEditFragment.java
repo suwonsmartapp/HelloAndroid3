@@ -211,7 +211,7 @@ public class MemoEditFragment extends Fragment {
                 try {
                     FileOutputStream fos = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Memo" + System.currentTimeMillis() + ".jpg");
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
