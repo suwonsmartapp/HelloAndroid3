@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="item_attach_image">
+        <item>사진 촬영</item>
+        <item>이미지 선택</item>
+    </array>
+</resources>

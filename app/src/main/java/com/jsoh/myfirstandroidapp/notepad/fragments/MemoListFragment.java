@@ -110,6 +110,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
             intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE, memo.getTitle());
             intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO, memo.getMemo());
+            intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUMN_NAME_IMAGE)));
             startActivity(intent);
         } else {
             Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
@@ -165,7 +166,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.note_main, menu);
+        inflater.inflate(R.menu.menu_note, menu);
 
         // SearchView
         // https://pluu.github.io/blog/android/2015/05/19/android-toolbar-searchview/
