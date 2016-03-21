@@ -132,7 +132,12 @@ public class MemoEditFragment extends Fragment {
                 showDeleteDialog();
                 break;
             case R.id.action_export:
-                // TODO 내보내기
+                String message = mTitleTextView.getText().toString() + "\n" +
+                        mMemoTextView.getText().toString();
+                Intent intent = IntentUtil.sendMessageIntent(message);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
                 break;
             case R.id.action_attach:
                 showAttachDialog();

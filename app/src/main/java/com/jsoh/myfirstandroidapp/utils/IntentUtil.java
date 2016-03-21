@@ -30,4 +30,11 @@ public class IntentUtil {
         return new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     }
 
+    public static Intent sendMessageIntent(String message) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        return intent;
+    }
+
 }
