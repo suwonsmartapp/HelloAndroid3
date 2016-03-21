@@ -59,7 +59,13 @@
             android:name=".notepad.activities.NoteMainActivity"
             android:label="@string/title_activity_note_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".notepad.activities.MemoEditActivity" />
+        <activity android:name=".notepad.activities.MemoEditActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name=".notepad.provider.MemoContentProvider"

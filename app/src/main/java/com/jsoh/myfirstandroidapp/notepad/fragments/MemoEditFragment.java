@@ -53,6 +53,17 @@ public class MemoEditFragment extends Fragment {
     public MemoEditFragment() {
     }
 
+    public static MemoEditFragment newInstance(String memo) {
+        MemoEditFragment fragment = new MemoEditFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("extra_text", memo);
+
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
     public static MemoEditFragment newInstance(long id, String title, String memo, String image) {
         MemoEditFragment fragment = new MemoEditFragment();
 
@@ -87,36 +98,46 @@ public class MemoEditFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            isEditMode = true;
+            String extra_text = bundle.getString("extra_text");
+            if (extra_text == null) {
+                isEditMode = true;
 
-            mId = bundle.getLong("id");
-            String title = bundle.getString("title");
-            String memo = bundle.getString("memo");
-            String image = bundle.getString("image");
+                mId = bundle.getLong("id");
+                String title = bundle.getString("title");
+                String memo = bundle.getString("memo");
+                String image = bundle.getString("image");
 
-            mTitle = title;
-            mMemo = memo;
+                mTitle = title;
+                mMemo = memo;
 
-            mTitleTextView.setText(title);
-            mMemoTextView.setText(memo);
-            try {
-                if (image != null) {
-                    mImageView.setImageBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Uri.parse(image)));
+                mTitleTextView.setText(title);
+                mMemoTextView.setText(memo);
+                try {
+                    if (image != null) {
+                        mImageView.setImageBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Uri.parse(image)));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                // 외부 앱에서 호출 됨
+                insertNewMemo();
+                mMemoTextView.setText(extra_text);
             }
-
         } else {
             // 삽입모드
-            ContentValues values = new ContentValues();
-            values.put(MemoContract.MemoEntry.COLUMN_NAME_MEMO, "");
-            Uri insertUri = getActivity().getContentResolver().insert(MemoContentProvider.CONTENT_URI,
-                    values);
-            if (insertUri != null) {
-                mId = ContentUris.parseId(insertUri);
-                Toast.makeText(getActivity(), "저장 되었습니다.", Toast.LENGTH_SHORT).show();
-            }
+            insertNewMemo();
+        }
+    }
+
+    private void insertNewMemo() {
+        ContentValues values = new ContentValues();
+        values.put(MemoContract.MemoEntry.COLUMN_NAME_MEMO, "");
+        Uri insertUri = getActivity().getContentResolver().insert(MemoContentProvider.CONTENT_URI,
+                values);
+        if (insertUri != null) {
+            mId = ContentUris.parseId(insertUri);
+            Toast.makeText(getActivity(), "저장 되었습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 

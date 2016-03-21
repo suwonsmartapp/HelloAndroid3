@@ -20,17 +20,25 @@ public class MemoEditActivity extends AppCompatActivity {
 
         // 내가 호출 된 Intent 의 내용을 확인
         Intent intent = getIntent();
+        String extra_text = intent.getStringExtra(Intent.EXTRA_TEXT);
+
         if (intent != null) {
-            long id = intent.getLongExtra(MemoContract.MemoEntry._ID, -1);
-
-            if (id != -1) {
-                String title = intent.getStringExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE);
-                String memo = intent.getStringExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO);
-                String image = intent.getStringExtra(MemoContract.MemoEntry.COLUMN_NAME_IMAGE);
-
-                fragment = MemoEditFragment.newInstance(id, title, memo, image);
+            if (extra_text != null) {
+                // 외부에서 호출 됨
+                fragment = MemoEditFragment.newInstance(extra_text);
             } else {
-                fragment = new MemoEditFragment();
+                // 내부 처리
+                long id = intent.getLongExtra(MemoContract.MemoEntry._ID, -1);
+
+                if (id != -1) {
+                    String title = intent.getStringExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE);
+                    String memo = intent.getStringExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO);
+                    String image = intent.getStringExtra(MemoContract.MemoEntry.COLUMN_NAME_IMAGE);
+
+                    fragment = MemoEditFragment.newInstance(id, title, memo, image);
+                } else {
+                    fragment = new MemoEditFragment();
+                }
             }
         }
 
