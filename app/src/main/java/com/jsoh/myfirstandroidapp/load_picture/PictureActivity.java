@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import com.suwonsmartapp.abl.AsyncBitmapLoader;
 public class PictureActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private PictureCursorAdapter mAdapter;
+    private PictureRecyclerViewAdapter mRecyclerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,21 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
         ListView listView = (ListView) findViewById(R.id.list);
         mAdapter = new PictureCursorAdapter(this, null);
         listView.setAdapter(mAdapter);
+
+        RecyclerView recyclerView =  (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerAdapter = new PictureRecyclerViewAdapter(this, null);
+        recyclerView.setAdapter(mRecyclerAdapter);
+
+        // 첫번째
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        // 두번째
+//        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+
+        // 세번째
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
 
         getLoaderManager().initLoader(0, null, this);
     }
@@ -48,11 +67,71 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.swapCursor(data);
+
+        mRecyclerAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
+    }
+
+    private static class PictureRecyclerViewAdapter extends RecyclerView.Adapter<PictureRecyclerViewAdapter.MyViewHolder> {
+
+        private Cursor mCursor;
+        private AsyncBitmapLoader mAsyncBitmapLoader;
+
+        public PictureRecyclerViewAdapter(Context context, Cursor cursor) {
+            mCursor = cursor;
+            mAsyncBitmapLoader = new AsyncBitmapLoader(context);
+            mAsyncBitmapLoader.setBitmapLoadListener(new AsyncBitmapLoader.BitmapLoadListener() {
+                @Override
+                public Bitmap getBitmap(String key) {
+                    // Background Thread
+
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;   // 2의 배수, 큰 값일 수록 이미지 크기가 작아짐
+
+                    return BitmapFactory.decodeFile(key, options);
+                }
+            });
+        }
+
+        static class MyViewHolder extends RecyclerView.ViewHolder {
+            ImageView imageView;
+
+            public MyViewHolder(View itemView) {
+                super(itemView);
+                imageView = (ImageView) itemView.findViewById(R.id.image);
+            }
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_list, parent, false);
+            return new MyViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            mCursor.moveToPosition(position);
+            Cursor cursor = mCursor;
+            mAsyncBitmapLoader.loadBitmap(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)), holder.imageView);
+        }
+
+
+        @Override
+        public int getItemCount() {
+            if (mCursor == null) {
+                return 0;
+            }
+            return mCursor.getCount();
+        }
+
+        public void swapCursor(Cursor cursor) {
+            mCursor = cursor;
+            notifyDataSetChanged();
+        }
     }
 
     private static class PictureCursorAdapter extends CursorAdapter {
