@@ -3,6 +3,7 @@ package com.jsoh.myfirstandroidapp.notepad.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -23,7 +25,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.jsoh.myfirstandroidapp.R;
@@ -40,7 +41,7 @@ import java.util.Set;
 /**
  * Created by junsuk on 16. 3. 8..
  */
-public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnKeyListener {
+public class MemoListFragment extends Fragment implements View.OnKeyListener, MemoRecyclerAdapter.OnItemClickListener {
 
     private static final String TAG = MemoListFragment.class.getSimpleName();
     private MemoRecyclerAdapter mAdapter;
@@ -59,27 +60,16 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         setTitle("메모 리스트");
         mListView = (RecyclerView) view.findViewById(R.id.list);
-//        mAdapter = new MemoCursorAdapter(getContext(), null) {
-//            @Override
-//            public void bindView(View view, Context context, Cursor cursor) {
-//                super.bindView(view, context, cursor);
-//                // TODO 검토
-//                if (mIsCheckedSet != null && mIsCheckedSet.contains(cursor.getPosition())) {
-//                    view.setBackgroundColor(Color.BLUE);
-//                } else {
-//                    view.setBackgroundColor(Color.WHITE);
-//                }
-//            }
-//        };
-        mAdapter = new MemoRecyclerAdapter(null);
 
+        mAdapter = new MemoRecyclerAdapter(null);
         mListView.setAdapter(mAdapter);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mListView.setLayoutManager(layoutManager);
 
         // TODO 리스너 구현
-//        mListView.setOnItemClickListener(this);
+        mAdapter.setOnItemClickListener(this);
+
 //        mListView.setOnItemLongClickListener(this);
 
         // fragment에서의 back key 처리
@@ -111,47 +101,6 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mMultiChecked == false) {
-            Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
-            Memo memo = Memo.cursorToMemo(cursor);
-            Intent intent = new Intent(getActivity(), MemoEditActivity.class);
-            intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
-            intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE, memo.getTitle());
-            intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO, memo.getMemo());
-            intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUMN_NAME_IMAGE)));
-            startActivity(intent);
-        } else {
-            Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
-
-            if (mIsCheckedSet.contains(position)) {
-                mIsCheckedSet.remove(position);
-                mSelectionCount--;
-            } else {
-                mIsCheckedSet.add(position);
-                mSelectionCount++;
-            }
-            setTitle("" + mSelectionCount);
-
-            // 멀티체크 모드 벗어나기
-            if (mSelectionCount < 1) {
-                setMultiCheckMode(false);
-            }
-
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, final long id) {
-        setMultiCheckMode(true);
-
-        // 현재 롱클릭 한 아이템을 선택 하고 다시 그리기
-        mIsCheckedSet.add(position);
-        mAdapter.notifyDataSetChanged();
-        return true;
-    }
 
     private void setTitle(String title) {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -277,5 +226,63 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         } else {
             setTitle("메모 리스트");
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        if (mMultiChecked == false) {
+            Cursor cursor = mAdapter.getItem(position);
+            Memo memo = Memo.cursorToMemo(cursor);
+            Intent intent = new Intent(getActivity(), MemoEditActivity.class);
+            intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
+            intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_TITLE, memo.getTitle());
+            intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_MEMO, memo.getMemo());
+            intent.putExtra(MemoContract.MemoEntry.COLUMN_NAME_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUMN_NAME_IMAGE)));
+            startActivity(intent);
+        } else {
+            // 색상 상태 변경
+            if (mIsCheckedSet.contains(position)) {
+                mIsCheckedSet.remove(position);
+                mSelectionCount--;
+            } else {
+                mIsCheckedSet.add(position);
+                mSelectionCount++;
+            }
+            setTitle("" + mSelectionCount);
+
+            // 색상 값 설정
+            changeColor(view, position);
+
+            // 멀티체크 모드 벗어나기
+            if (mSelectionCount < 1) {
+                setMultiCheckMode(false);
+            }
+
+            // 변경 적용
+            mAdapter.notifyItemChanged(position);
+        }
+    }
+
+    private void changeColor(View view, int position) {
+        if (mIsCheckedSet != null && mIsCheckedSet.contains(position)) {
+            if (view instanceof CardView) {
+                ((CardView)view).setCardBackgroundColor(Color.BLUE);
+            }
+        } else {
+            if (view instanceof CardView) {
+                ((CardView)view).setCardBackgroundColor(Color.WHITE);
+            }
+        }
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+        setMultiCheckMode(true);
+
+        // 현재 롱클릭 한 아이템을 선택 하고 다시 그리기
+        mIsCheckedSet.add(position);
+
+        changeColor(view, position);
+        mAdapter.notifyDataSetChanged();
     }
 }

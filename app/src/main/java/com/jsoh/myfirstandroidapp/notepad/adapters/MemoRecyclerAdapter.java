@@ -15,6 +15,23 @@ import com.jsoh.myfirstandroidapp.notepad.db.MemoContract;
  */
 public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapter.Holder> {
 
+    private OnItemClickListener mListener;
+
+    public Cursor getItem(int position) {
+        Cursor cursor = mCursor;
+        cursor.moveToPosition(position);
+        return cursor;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
     private Cursor mCursor;
 
     public MemoRecyclerAdapter(Cursor cursor) {
@@ -23,8 +40,26 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_memo, parent, false);
-        return new Holder(itemView);
+        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_memo, parent, false);
+        final Holder holder = new Holder(itemView);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null) {
+                    mListener.onItemClick(itemView, holder.getAdapterPosition());
+                }
+            }
+        });
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(mListener != null) {
+                    mListener.onItemLongClick(itemView, holder.getAdapterPosition());
+                }
+                return true;
+            }
+        });
+        return holder;
     }
 
     @Override
