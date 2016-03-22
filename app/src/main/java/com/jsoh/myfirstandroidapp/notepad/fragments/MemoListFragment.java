@@ -77,10 +77,11 @@ public class MemoListFragment extends Fragment implements View.OnKeyListener, Me
 
         mAdapter.setOnItemClickListener(this);
 
-
+        // 기본 애니메이션
         DefaultItemAnimator animator = new DefaultItemAnimator();
-        animator.setAddDuration(500);
-        animator.setRemoveDuration(500);
+        // 애니메이션 수정
+//        animator.setAddDuration(500);
+//        animator.setRemoveDuration(1000);
 
         mListView.setItemAnimator(animator);
 
@@ -203,8 +204,6 @@ public class MemoListFragment extends Fragment implements View.OnKeyListener, Me
                             Toast.makeText(getActivity(), "삭제 되었습니다", Toast.LENGTH_SHORT).show();
 
                             setMultiCheckMode(false);
-
-//                            mAdapter.notifyItemRemoved(Integer.parseInt(finalIds));
                         }
                     }
                 })

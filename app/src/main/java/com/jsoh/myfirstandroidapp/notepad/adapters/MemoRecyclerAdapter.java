@@ -1,8 +1,10 @@
 package com.jsoh.myfirstandroidapp.notepad.adapters;
 
 import android.database.Cursor;
+import android.database.CursorJoiner;
 import android.provider.BaseColumns;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,8 +95,32 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
     }
 
     public void swapCursor(Cursor data) {
+        Cursor oldCursor = mCursor;
+        if (oldCursor != null && data != null && !oldCursor.isClosed() && !data.isClosed()) {
+            String[] columns = {BaseColumns._ID};
+            CursorJoiner joiner = new CursorJoiner(oldCursor, columns, data, columns);
+            for (CursorJoiner.Result result : joiner) {
+                switch (result) {
+                    case LEFT:
+                        notifyItemRemoved(data.getPosition());
+                        Log.d("swapCursor", "LEFT");
+                        break;
+                    case RIGHT:
+                        notifyItemInserted(data.getPosition());
+                        Log.d("swapCursor", "RIGHT");
+                        break;
+                    case BOTH:
+                        if (oldCursor.hashCode() != data.hashCode()) {
+                            notifyItemChanged(data.getPosition());
+                            Log.d("swapCursor", "BOTH");
+                        }
+                        break;
+                }
+            }
+            oldCursor.close();
+        }
+
         mCursor = data;
-        notifyDataSetChanged();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
