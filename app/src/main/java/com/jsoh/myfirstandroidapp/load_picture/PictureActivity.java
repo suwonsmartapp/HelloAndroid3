@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,8 +12,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,16 +42,20 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
         mRecyclerAdapter = new PictureRecyclerViewAdapter(this, null);
         recyclerView.setAdapter(mRecyclerAdapter);
 
-        // 첫번째
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        // 두번째
-//        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        // 화면의 방향을 알 수 있는 방법
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // 첫번째
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+        } else {
+            // 두번째
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+            recyclerView.setLayoutManager(layoutManager);
+        }
 
         // 세번째
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         getLoaderManager().initLoader(0, null, this);
     }
