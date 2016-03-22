@@ -1,6 +1,7 @@
 package com.jsoh.myfirstandroidapp.notepad.adapters;
 
 import android.database.Cursor;
+import android.provider.BaseColumns;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,6 +84,12 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
         }
         return mCursor.getCount();
 //        return mCursor == null ? 0 : mCursor.getCount();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        Cursor cursor = getItem(position);
+        return cursor.getLong(cursor.getColumnIndexOrThrow(BaseColumns._ID));
     }
 
     public void swapCursor(Cursor data) {
