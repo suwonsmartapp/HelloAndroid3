@@ -1,10 +1,8 @@
 package com.jsoh.myfirstandroidapp.notepad.fragments;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,7 +28,7 @@ import android.widget.Toast;
 
 import com.jsoh.myfirstandroidapp.R;
 import com.jsoh.myfirstandroidapp.notepad.activities.MemoEditActivity;
-import com.jsoh.myfirstandroidapp.notepad.adapters.MemoCursorAdapter;
+import com.jsoh.myfirstandroidapp.notepad.adapters.MemoRecyclerAdapter;
 import com.jsoh.myfirstandroidapp.notepad.db.MemoContract;
 import com.jsoh.myfirstandroidapp.notepad.models.Memo;
 import com.jsoh.myfirstandroidapp.notepad.provider.MemoContentProvider;
@@ -44,7 +43,7 @@ import java.util.Set;
 public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnKeyListener {
 
     private static final String TAG = MemoListFragment.class.getSimpleName();
-    private MemoCursorAdapter mAdapter;
+    private MemoRecyclerAdapter mAdapter;
     private RecyclerView mListView;
     private boolean mMultiChecked;
     private Set<Integer> mIsCheckedSet = new HashSet<>();
@@ -60,20 +59,25 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         setTitle("메모 리스트");
         mListView = (RecyclerView) view.findViewById(R.id.list);
-        mAdapter = new MemoCursorAdapter(getContext(), null) {
-            @Override
-            public void bindView(View view, Context context, Cursor cursor) {
-                super.bindView(view, context, cursor);
-                // TODO 검토
-                if (mIsCheckedSet != null && mIsCheckedSet.contains(cursor.getPosition())) {
-                    view.setBackgroundColor(Color.BLUE);
-                } else {
-                    view.setBackgroundColor(Color.WHITE);
-                }
-            }
-        };
+//        mAdapter = new MemoCursorAdapter(getContext(), null) {
+//            @Override
+//            public void bindView(View view, Context context, Cursor cursor) {
+//                super.bindView(view, context, cursor);
+//                // TODO 검토
+//                if (mIsCheckedSet != null && mIsCheckedSet.contains(cursor.getPosition())) {
+//                    view.setBackgroundColor(Color.BLUE);
+//                } else {
+//                    view.setBackgroundColor(Color.WHITE);
+//                }
+//            }
+//        };
+        mAdapter = new MemoRecyclerAdapter(null);
 
-//        mListView.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
+
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mListView.setLayoutManager(layoutManager);
+
         // TODO 리스너 구현
 //        mListView.setOnItemClickListener(this);
 //        mListView.setOnItemLongClickListener(this);
