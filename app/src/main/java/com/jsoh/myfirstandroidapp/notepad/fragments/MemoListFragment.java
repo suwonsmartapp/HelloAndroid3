@@ -14,6 +14,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.jsoh.myfirstandroidapp.R;
@@ -45,7 +45,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
     private static final String TAG = MemoListFragment.class.getSimpleName();
     private MemoCursorAdapter mAdapter;
-    private ListView mListView;
+    private RecyclerView mListView;
     private boolean mMultiChecked;
     private Set<Integer> mIsCheckedSet = new HashSet<>();
     private int mSelectionCount = 0;
@@ -59,7 +59,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         setTitle("메모 리스트");
-        mListView = (ListView) view.findViewById(R.id.list);
+        mListView = (RecyclerView) view.findViewById(R.id.list);
         mAdapter = new MemoCursorAdapter(getContext(), null) {
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
@@ -73,9 +73,10 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             }
         };
 
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(this);
-        mListView.setOnItemLongClickListener(this);
+//        mListView.setAdapter(mAdapter);
+        // TODO 리스너 구현
+//        mListView.setOnItemClickListener(this);
+//        mListView.setOnItemLongClickListener(this);
 
         // fragment에서의 back key 처리
         // http://stackoverflow.com/questions/7992216/android-fragment-handle-back-button-press
