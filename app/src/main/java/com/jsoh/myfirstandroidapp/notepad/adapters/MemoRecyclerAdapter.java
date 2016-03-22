@@ -110,7 +110,7 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
                         Log.d("swapCursor", "RIGHT");
                         break;
                     case BOTH:
-                        if (oldCursor.hashCode() != data.hashCode()) {
+                        if (getRowHash(oldCursor) != getRowHash(data)) {
                             notifyItemChanged(data.getPosition());
                             Log.d("swapCursor", "BOTH");
                         }
@@ -121,6 +121,14 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
         }
 
         mCursor = data;
+    }
+
+    private int getRowHash(Cursor cursor) {
+        StringBuilder result = new StringBuilder("row");
+        for (int i = 0; i < cursor.getColumnCount(); i++) {
+            result.append(cursor.getString(i));
+        }
+        return result.toString().hashCode();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
