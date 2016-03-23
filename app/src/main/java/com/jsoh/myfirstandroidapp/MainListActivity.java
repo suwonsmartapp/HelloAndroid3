@@ -22,6 +22,7 @@ import com.jsoh.myfirstandroidapp.exam_thread.ThreadActivity;
 import com.jsoh.myfirstandroidapp.exam_viewpager.ScreenSlideActivity;
 import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
 import com.jsoh.myfirstandroidapp.load_picture.PictureActivity;
+import com.jsoh.myfirstandroidapp.load_picture.PictureNetworkActivity;
 import com.jsoh.myfirstandroidapp.notepad.activities.NoteMainActivity;
 
 import java.text.Collator;
@@ -82,6 +83,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "Json Parsing", JsonParsingActivity.class);
         addItem(myData, "메모장", NoteMainActivity.class);
         addItem(myData, "사진 보기 - Provider", PictureActivity.class);
+        addItem(myData, "사진 다운로드 표시 - 네트워크 경유", PictureNetworkActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬

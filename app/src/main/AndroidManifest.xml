@@ -79,7 +79,8 @@
         <activity android:name=".load_picture.PictureActivity" />
         <activity
             android:name=".notepad.activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".load_picture.PictureNetworkActivity" />
     </application>
 
 </manifest>
