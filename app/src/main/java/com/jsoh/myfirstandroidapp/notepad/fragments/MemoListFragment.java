@@ -80,8 +80,10 @@ public class MemoListFragment extends Fragment implements View.OnKeyListener, Me
         // 기본 애니메이션
         DefaultItemAnimator animator = new DefaultItemAnimator();
         // 애니메이션 수정
-//        animator.setAddDuration(500);
-//        animator.setRemoveDuration(1000);
+        animator.setAddDuration(1000);
+        animator.setRemoveDuration(1000);
+        animator.setChangeDuration(1000);
+        animator.setMoveDuration(1000);
 
         mListView.setItemAnimator(animator);
 

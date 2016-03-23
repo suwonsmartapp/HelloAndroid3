@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     // sdcard
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -64,7 +63,9 @@
         <activity android:name=".notepad.activities.MemoEditActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
@@ -75,7 +76,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".load_picture.PictureActivity"></activity>
+        <activity android:name=".load_picture.PictureActivity" />
+        <activity
+            android:name=".notepad.activities.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
