@@ -83,7 +83,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             @Override
             public void run() {
 //                Toast.makeText(getActivity(), msgInfo.toString(), Toast.LENGTH_SHORT).show();
-                mMessageListTextView.setText(mMessageListTextView.getText().toString() + "\n" + mMessageEdit.getText().toString());
+                mMessageListTextView.setText(mMessageListTextView.getText().toString() + "\n" + msgInfo.getNickName() + ": " + msgInfo.getMessage());
                 mMessageEdit.setText("");
             }
         });
