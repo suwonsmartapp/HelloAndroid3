@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.jsoh.myfirstandroidapp.chat.ChatActivity;
 import com.jsoh.myfirstandroidapp.exam_broadcast.BroadcastActivity;
 import com.jsoh.myfirstandroidapp.exam_coffee.CoffeeActivity;
 import com.jsoh.myfirstandroidapp.exam_eventbus.EventBusActivity;
@@ -84,6 +85,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "메모장", NoteMainActivity.class);
         addItem(myData, "사진 보기 - Provider", PictureActivity.class);
         addItem(myData, "사진 다운로드 표시 - 네트워크 경유", PictureNetworkActivity.class);
+        addItem(myData, "채팅", ChatActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
