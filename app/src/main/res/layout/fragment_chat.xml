@@ -9,10 +9,20 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/msg_list_text"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <!--<TextView-->
+            <!--android:layout_gravity="right"-->
+            <!--android:id="@+id/msg_list_text"-->
+            <!--android:text="안녕하세요"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/bubble"-->
+            <!--/>-->
     </ScrollView>
 
     <LinearLayout
