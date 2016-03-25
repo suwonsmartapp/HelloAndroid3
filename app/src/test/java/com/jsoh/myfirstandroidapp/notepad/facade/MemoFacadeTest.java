@@ -34,12 +34,15 @@ public class MemoFacadeTest {
     @Test
     public void testInsertMemo() throws Exception {
         long id = mMemoFacade.insertMemo("test", "test");
-        Assert.assertEquals(1, id);
+        Assert.assertEquals(2, id);
+
+        id = mMemoFacade.insertMemo("test", "test");
+        Assert.assertEquals(3, id);
     }
 
     @Test
     public void testQueryAllMemos() throws Exception {
-
+        Assert.assertEquals(1, mMemoFacade.queryAllMemos().getCount());
     }
 
     @Test
@@ -47,7 +50,7 @@ public class MemoFacadeTest {
         mMemoFacade.insertMemo("test", "test");
 
         Cursor cursor = mMemoFacade.queryAllMemos();
-        Assert.assertEquals(1, cursor.getCount());
+        Assert.assertEquals(2, cursor.getCount());
     }
 
     @Test
