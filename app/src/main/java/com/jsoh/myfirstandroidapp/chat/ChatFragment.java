@@ -165,7 +165,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 holder.message_you.setText(msgInfo.getMessage());
                 holder.time_you.setText(mmSimpleDateFormat.format(new Date()));
                 holder.nickname.setText(msgInfo.getNickName());
-                holder.image.setImageResource(R.mipmap.ic_launcher);
+                holder.image.setImageResource(R.drawable.girl);
 
                 holder.layout_me.setVisibility(View.GONE);
                 holder.layout_you.setVisibility(View.VISIBLE);
