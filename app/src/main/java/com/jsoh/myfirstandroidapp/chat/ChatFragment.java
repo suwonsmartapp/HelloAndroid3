@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jsoh.myfirstandroidapp.R;
@@ -25,14 +24,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ChatFragment extends Fragment implements View.OnClickListener {
     private EditText mMessageEdit;
     private ChatClient mChatClient;
-    private LinearLayout mLinearLayout;
-    private ScrollView mScrollView;
+    private ListView mListView;
+    private List<MsgInfo> mChatData;
+    private MyAdapter myAdapter;
 
     @Nullable
     @Override
@@ -45,8 +46,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         mMessageEdit = (EditText) view.findViewById(R.id.edit_message);
-        mLinearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
-        mScrollView = (ScrollView) view.findViewById(R.id.scroll);
+        mListView = (ListView) view.findViewById(R.id.list_view);
+
+        mChatData = new ArrayList<>();
+
+        myAdapter = new MyAdapter(getActivity(), mChatData);
+        mListView.setAdapter(myAdapter);
+
 
         view.findViewById(R.id.btn_send).setOnClickListener(this);
 
@@ -95,30 +101,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                // <TextView />
-                TextView textView = new TextView(getActivity());
-                //  android:layout_width="wrap_content"
-                //  android:layout_height="wrap_content"
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                //  android:layout_gravity="right"
-
-                if (msgInfo.getNickName().equals(ChatClient.NICKNAME)) {
-                    View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat_me, mLinearLayout, false);
-                    TextView timeText = (TextView) itemView.findViewById(R.id.time_me);
-                    TextView messageText = (TextView) itemView.findViewById(R.id.message_me);
-//                    timeText.setText(mSimpleDateFormat.format(new Date()));
-                    messageText.setText(msgInfo.getMessage());
-                    mLinearLayout.addView(itemView);
-                } else {
-                    params.gravity = Gravity.LEFT;
-                    textView.setBackgroundResource(R.drawable.thm_chatroom_message_bubble_you_bg);
-                    textView.setText(msgInfo.getMessage());
-                    textView.setLayoutParams(params);
-                    mLinearLayout.addView(textView);
-                }
-                //  android:background="@drawable/bubble"
-
+                mChatData.add(msgInfo);
+                myAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -185,6 +169,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
                 holder.layout_me.setVisibility(View.GONE);
                 holder.layout_you.setVisibility(View.VISIBLE);
+
+                if (position > 0 && msgInfo.getNickName().equals(((MsgInfo)getItem(position - 1)).getNickName())) {
+                    holder.image.setVisibility(View.INVISIBLE);
+                    holder.nickname.setVisibility(View.GONE);
+                } else {
+                    holder.image.setVisibility(View.VISIBLE);
+                    holder.nickname.setVisibility(View.VISIBLE);
+                }
             }
 
             return convertView;

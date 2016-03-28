@@ -4,28 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scroll"
+    <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#7596C3">
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!--<TextView-->
-            <!--android:layout_gravity="right"-->
-            <!--android:id="@+id/msg_list_text"-->
-            <!--android:text="안녕하세요"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@drawable/bubble"-->
-            <!--/>-->
-    </ScrollView>
+        android:transcriptMode="alwaysScroll"
+        android:divider="@android:color/transparent"
+        android:background="#7596C3" />
 
     <LinearLayout
         android:layout_width="match_parent"
