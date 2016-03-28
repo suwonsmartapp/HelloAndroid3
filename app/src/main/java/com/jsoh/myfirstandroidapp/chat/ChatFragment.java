@@ -123,6 +123,83 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    
+    private static class MyAdapter extends BaseAdapter {
+        private SimpleDateFormat mmSimpleDateFormat = new SimpleDateFormat("hh:dd a");
+
+        private final LayoutInflater mmLayoutInflater;
+        private final List<MsgInfo> mmData;
+
+        public MyAdapter(Context context, List<MsgInfo> data) {
+            mmLayoutInflater = LayoutInflater.from(context);
+            mmData = data;
+        }
+
+        @Override
+        public int getCount() {
+            return mmData.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mmData.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+
+                convertView = mmLayoutInflater.inflate(R.layout.item_chat_me, parent, false);
+                holder.image = (ImageView) convertView.findViewById(R.id.image_you);
+                holder.message_me = (TextView) convertView.findViewById(R.id.message_me);
+                holder.message_you = (TextView) convertView.findViewById(R.id.message_you);
+                holder.time_me = (TextView) convertView.findViewById(R.id.time_me);
+                holder.time_you = (TextView) convertView.findViewById(R.id.time_you);
+                holder.nickname = (TextView) convertView.findViewById(R.id.nickname_you);
+                holder.layout_me = (LinearLayout) convertView.findViewById(R.id.layout_me);
+                holder.layout_you = (LinearLayout) convertView.findViewById(R.id.layout_you);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            MsgInfo msgInfo = (MsgInfo) getItem(position);
+            if (msgInfo.getNickName().equals(ChatClient.NICKNAME)) {
+                holder.message_me.setText(msgInfo.getMessage());
+                holder.time_me.setText(mmSimpleDateFormat.format(new Date()));
+
+                holder.layout_me.setVisibility(View.VISIBLE);
+                holder.layout_you.setVisibility(View.GONE);
+            } else {
+                holder.message_you.setText(msgInfo.getMessage());
+                holder.time_you.setText(mmSimpleDateFormat.format(new Date()));
+                holder.nickname.setText(msgInfo.getNickName());
+                holder.image.setImageResource(R.mipmap.ic_launcher);
+
+                holder.layout_me.setVisibility(View.GONE);
+                holder.layout_you.setVisibility(View.VISIBLE);
+            }
+
+            return convertView;
+        }
+
+        private static class ViewHolder {
+            LinearLayout layout_you;
+            LinearLayout layout_me;
+            TextView time_me;
+            TextView time_you;
+            TextView message_me;
+            TextView message_you;
+            TextView nickname;
+            ImageView image;
+        }
+    }
 
 }
