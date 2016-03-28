@@ -1,5 +1,6 @@
 package com.jsoh.myfirstandroidapp.chat;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -9,7 +10,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -20,6 +23,10 @@ import com.jsoh.myfirstandroidapp.chat.client.MsgInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class ChatFragment extends Fragment implements View.OnClickListener {
     private EditText mMessageEdit;
@@ -96,18 +103,26 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 //  android:layout_gravity="right"
 
-                if (msgInfo.getNickName().equals("오준석")) {
-                    params.gravity = Gravity.RIGHT;
+                if (msgInfo.getNickName().equals(ChatClient.NICKNAME)) {
+                    View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat_me, mLinearLayout, false);
+                    TextView timeText = (TextView) itemView.findViewById(R.id.time_me);
+                    TextView messageText = (TextView) itemView.findViewById(R.id.message_me);
+//                    timeText.setText(mSimpleDateFormat.format(new Date()));
+                    messageText.setText(msgInfo.getMessage());
+                    mLinearLayout.addView(itemView);
                 } else {
                     params.gravity = Gravity.LEFT;
+                    textView.setBackgroundResource(R.drawable.thm_chatroom_message_bubble_you_bg);
+                    textView.setText(msgInfo.getMessage());
+                    textView.setLayoutParams(params);
+                    mLinearLayout.addView(textView);
                 }
-                textView.setLayoutParams(params);
                 //  android:background="@drawable/bubble"
-                textView.setBackgroundResource(R.drawable.bubble);
-                textView.setText(msgInfo.getNickName() + ": " + msgInfo.getMessage());
 
-                mLinearLayout.addView(textView);
             }
         });
     }
+
+    
+
 }
