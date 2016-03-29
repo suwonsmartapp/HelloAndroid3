@@ -25,6 +25,7 @@ import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
 import com.jsoh.myfirstandroidapp.load_picture.PictureActivity;
 import com.jsoh.myfirstandroidapp.load_picture.PictureNetworkActivity;
 import com.jsoh.myfirstandroidapp.notepad.activities.NoteMainActivity;
+import com.jsoh.myfirstandroidapp.service.ServiceMainActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "사진 보기 - Provider", PictureActivity.class);
         addItem(myData, "사진 다운로드 표시 - 네트워크 경유", PictureNetworkActivity.class);
         addItem(myData, "채팅", ChatActivity.class);
+        addItem(myData, "서비스", ServiceMainActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jsoh.myfirstandroidapp">
+    package="com.jsoh.myfirstandroidapp" >
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,8 +13,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainListActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".MainListActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +46,7 @@
         <receiver
             android:name=".exam_broadcast.MyReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
@@ -60,7 +60,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- http://developer.android.com/intl/ko/training/basics/intents/filters.html#AddIntentFilter -->
-        <activity android:name=".notepad.activities.MemoEditActivity">
+        <activity android:name=".notepad.activities.MemoEditActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -81,8 +81,18 @@
             android:name=".notepad.activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".load_picture.PictureNetworkActivity" />
-        <activity android:name=".chat.ChatActivity"
+        <activity
+            android:name=".chat.ChatActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".service.ServiceMainActivity" />
+
+        <service
+            android:name=".service.MyService"
+            android:enabled="true" />
+        <service
+            android:name=".service.MyIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
