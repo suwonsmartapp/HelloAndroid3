@@ -17,6 +17,7 @@ import com.jsoh.myfirstandroidapp.exam_fragment.exam1.Exam203Activity;
 import com.jsoh.myfirstandroidapp.exam_fragment.exam2.Exam212Activity;
 import com.jsoh.myfirstandroidapp.exam_lifecycle.LifeCycleActivity;
 import com.jsoh.myfirstandroidapp.exam_listview.ListViewActivity;
+import com.jsoh.myfirstandroidapp.exam_parsing.GsonActivity;
 import com.jsoh.myfirstandroidapp.exam_parsing.JsonParsingActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.AsyncTaskActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.ThreadActivity;
@@ -88,6 +89,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "사진 다운로드 표시 - 네트워크 경유", PictureNetworkActivity.class);
         addItem(myData, "채팅", ChatActivity.class);
         addItem(myData, "서비스", ServiceMainActivity.class);
+        addItem(myData, "Gson 라이브러리", GsonActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
