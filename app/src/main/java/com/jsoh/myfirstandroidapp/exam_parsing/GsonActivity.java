@@ -1,9 +1,12 @@
 package com.jsoh.myfirstandroidapp.exam_parsing;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.UiThread;
 import android.support.annotation.WorkerThread;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,7 +34,10 @@ public class GsonActivity extends AppCompatActivity {
     private static final String TAG = GsonActivity.class.getSimpleName();
     private ListView mListView;
     private ProgressBar mProgress;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private WeatherAdapter mAdapter;
 
+    private Handler mHandler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,24 @@ public class GsonActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.list_view);
         mProgress = (ProgressBar) findViewById(R.id.progress);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN);
+
+        mAdapter = new WeatherAdapter(null);
+        mListView.setAdapter(mAdapter);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        new WeatherAsyncTask().execute();
+                    }
+                }, 3000);
+
+            }
+        });
 
         new WeatherAsyncTask().execute();
     }
@@ -69,10 +94,16 @@ public class GsonActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<Weather> result) {
             if (result != null) {
-                WeatherAdapter adapter = new WeatherAdapter(result);
-                mListView.setAdapter(adapter);
+                mAdapter.mData = result;
+                mAdapter.notifyDataSetChanged();
+
+                Toast.makeText(GsonActivity.this, "날씨가 갱신되었습니다.", Toast.LENGTH_SHORT).show();
 
                 mProgress.setVisibility(View.GONE);
+            }
+
+            if (mSwipeRefreshLayout.isRefreshing()) {
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
         }
@@ -90,7 +121,7 @@ public class GsonActivity extends AppCompatActivity {
 
     private static class WeatherAdapter extends BaseAdapter {
 
-        private final List<Weather> mData;
+        private List<Weather> mData;
 
         public WeatherAdapter(List<Weather> data) {
             mData = data;
@@ -98,6 +129,9 @@ public class GsonActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
+            if (mData == null) {
+                return 0;
+            }
             return mData.size();
         }
 
