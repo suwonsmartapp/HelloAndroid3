@@ -19,10 +19,6 @@ import com.google.gson.reflect.TypeToken;
 import com.jsoh.myfirstandroidapp.R;
 import com.jsoh.myfirstandroidapp.exam_parsing.models.Weather;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -54,14 +50,16 @@ public class GsonActivity extends AppCompatActivity {
         protected List<Weather> doInBackground(Void... params) {
             List result = null;
             try {
-                JSONObject jsonObject = new JSONObject(parsing("https://raw.githubusercontent.com/ChoiJinYoung/iphonewithswift2/master/weather.json"));
-                JSONObject weatherinfo = jsonObject.getJSONObject("weatherinfo");
-                JSONArray local = weatherinfo.getJSONArray("local");
+//                JSONObject jsonObject = new JSONObject(parsing("https://raw.githubusercontent.com/ChoiJinYoung/iphonewithswift2/master/weather.json"));
+//                JSONObject weatherinfo = jsonObject.getJSONObject("weatherinfo");
+//                JSONArray local = weatherinfo.getJSONArray("local");
+
+                String local = parsing("http://suwonsmartapp.iptime.org/test/ojs/weather.php");
 
                 Gson gson = new Gson();
                 result = gson.fromJson(local.toString(), new TypeToken<List<Weather>>(){}.getType());
 
-            } catch (JSONException | IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return result;
