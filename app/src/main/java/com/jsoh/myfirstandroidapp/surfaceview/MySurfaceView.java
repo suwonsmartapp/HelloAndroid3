@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -69,8 +68,8 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceCreated(SurfaceHolder holder) {
         Log.d(TAG, "surfaceCreated");
 
-        mSensor = mSensorManager.getDefaultSensor(SensorManager.SENSOR_ORIENTATION);
-        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME);
 
         mThread = new Thread(this);
         mThread.start();
@@ -103,11 +102,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
             if (canvas != null) {
                 // 그리기
                 canvas.drawColor(Color.RED);
-                if (mBall == null) {
-                    mBall = new Ball(mDrawable, new Rect(0, 0, mWidth, mHeight));
-                }
-                mBall.move(mPitch, mRoll);
-                mBall.draw(canvas);
+                canvas.drawCircle(mPitch, mRoll, 50, mPaint);
 
                 // 화면에 반영
                 mSurfaceHolder.unlockCanvasAndPost(canvas);
@@ -118,10 +113,18 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        Log.d(TAG, "" + event.values[0] + ", " + event.values[1] + ", " + event.values[2]);
+//        Log.d(TAG, "" + event.values[0] + ", " + event.values[1] + ", " + event.values[2]);
 
-        mPitch = event.values[SensorManager.DATA_Y];
-        mRoll = event.values[SensorManager.DATA_Z];
+        if (mPitch == 0) {
+            mPitch = event.values[0];
+        } else {
+            mPitch -= event.values[0];
+        }
+        if (mRoll == 0) {
+            mRoll = event.values[1];
+        } else {
+            mRoll += event.values[1];
+        }
     }
 
     @Override
