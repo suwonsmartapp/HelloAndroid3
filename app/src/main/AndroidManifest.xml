@@ -96,6 +96,9 @@
         <activity android:name=".exam_parsing.GsonActivity" />
         <activity android:name=".surfaceview.SurfaceViewExamActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".surfaceview.CompassActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

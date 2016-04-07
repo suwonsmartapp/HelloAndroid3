@@ -27,6 +27,7 @@ import com.jsoh.myfirstandroidapp.load_picture.PictureActivity;
 import com.jsoh.myfirstandroidapp.load_picture.PictureNetworkActivity;
 import com.jsoh.myfirstandroidapp.notepad.activities.NoteMainActivity;
 import com.jsoh.myfirstandroidapp.service.ServiceMainActivity;
+import com.jsoh.myfirstandroidapp.surfaceview.CompassActivity;
 import com.jsoh.myfirstandroidapp.surfaceview.SurfaceViewExamActivity;
 
 import java.text.Collator;
@@ -91,7 +92,8 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "채팅", ChatActivity.class);
         addItem(myData, "서비스", ServiceMainActivity.class);
         addItem(myData, "Gson 라이브러리", GsonActivity.class);
-        addItem(myData, "SurfaceView", SurfaceViewExamActivity.class);
+        addItem(myData, "SurfaceView - Sensor", SurfaceViewExamActivity.class);
+        addItem(myData, "나침반 - Sensor", CompassActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
