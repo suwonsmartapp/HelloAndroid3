@@ -91,9 +91,10 @@
             android:enabled="true" />
         <service
             android:name=".service.MyIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
 
-        <activity android:name=".exam_parsing.GsonActivity"></activity>
+        <activity android:name=".exam_parsing.GsonActivity" />
+        <activity android:name=".surfaceview.SurfaceViewExamActivity"></activity>
     </application>
 
 </manifest>
