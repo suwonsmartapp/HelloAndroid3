@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jsoh.myfirstandroidapp.touch.CustomLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jsoh.myfirstandroidapp.touch.TouchExamActivity">
+
+    <com.jsoh.myfirstandroidapp.touch.CustomButton
+        android:text="버튼1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.jsoh.myfirstandroidapp.touch.CustomButton2
+        android:text="버튼2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.jsoh.myfirstandroidapp.touch.CustomView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</com.jsoh.myfirstandroidapp.touch.CustomLinearLayout>

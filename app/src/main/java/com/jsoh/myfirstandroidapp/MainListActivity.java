@@ -30,6 +30,7 @@ import com.jsoh.myfirstandroidapp.permission.PermissionExamActivity;
 import com.jsoh.myfirstandroidapp.service.ServiceMainActivity;
 import com.jsoh.myfirstandroidapp.surfaceview.CompassActivity;
 import com.jsoh.myfirstandroidapp.surfaceview.SurfaceViewExamActivity;
+import com.jsoh.myfirstandroidapp.touch.TouchExamActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -96,6 +97,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "SurfaceView - Sensor", SurfaceViewExamActivity.class);
         addItem(myData, "나침반 - Sensor", CompassActivity.class);
         addItem(myData, "권한 체크", PermissionExamActivity.class);
+        addItem(myData, "터치 이벤트", TouchExamActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
