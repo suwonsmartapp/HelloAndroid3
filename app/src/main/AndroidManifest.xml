@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     // sdcard
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -94,11 +95,14 @@
             android:exported="false" />
 
         <activity android:name=".exam_parsing.GsonActivity" />
-        <activity android:name=".surfaceview.SurfaceViewExamActivity"
+        <activity
+            android:name=".surfaceview.SurfaceViewExamActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".surfaceview.CompassActivity"
+        <activity
+            android:name=".surfaceview.CompassActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".permission.PermissionExamActivity" />
+        <activity android:name=".permission.PermissionsActivity"></activity>
     </application>
 
 </manifest>
