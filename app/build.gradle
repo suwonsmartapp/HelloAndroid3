@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true // Fixed com.android.dex.DexIndexOverflowException: method ID not in [0, 0xffff]: 65536
     }
     buildTypes {
         release {
@@ -19,6 +20,10 @@ android {
     }
     repositories {
         maven { url 'http://junsuk5.github.io/AsyncBitmapLoader/repository' }
+    }
+    dexOptions {
+        jumboMode = true // Fixed java.lang.OutOfMemoryError: GC overhead limit exceeded
+        javaMaxHeapSize "2g" // Fixed java.lang.OutOfMemoryError: GC overhead limit exceeded
     }
 }
 
@@ -36,4 +41,5 @@ dependencies {
     compile 'com.suwonsmartapp:async-bitmap-loader:0.3'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'com.android.support:multidex:1.0.1'
 }
