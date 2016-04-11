@@ -15,3 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+## Smooch
+-dontwarn okio.**
+-keep class okio.**
+-keep class com.google.gson.**

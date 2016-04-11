@@ -103,7 +103,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".permission.PermissionExamActivity" />
         <activity android:name=".permission.PermissionsActivity" />
-        <activity android:name=".touch.TouchExamActivity"></activity>
+        <activity android:name=".touch.TouchExamActivity" />
+        <activity android:name=".smooch_slack_whispers_chatting.SuperChatActivity"></activity>
     </application>
 
 </manifest>
