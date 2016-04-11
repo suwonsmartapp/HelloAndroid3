@@ -48,3 +48,5 @@ dependencies {
     compile 'io.smooch:core:latest.release'
     compile 'io.smooch:ui:latest.release'
 }
+
+apply plugin: 'com.google.gms.google-services'

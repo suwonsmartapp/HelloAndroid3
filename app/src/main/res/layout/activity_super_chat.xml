@@ -9,4 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jsoh.myfirstandroidapp.smooch_slack_whispers_chatting.SuperChatActivity">
 
+    <Button
+        android:text="gcm"
+        android:id="@+id/gcm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

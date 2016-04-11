@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_id": "maximal-arcade-94901",
+    "project_number": "136174942337",
+    "name": "GCM test"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136174942337:android:dd204e648c513871",
+        "client_id": "android:com.jsoh.myfirstandroidapp",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.jsoh.myfirstandroidapp",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
