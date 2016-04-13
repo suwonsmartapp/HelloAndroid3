@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.jsoh.myfirstandroidapp.R;
@@ -37,6 +39,8 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
 
     private Cursor mCursor;
 
+    private Animation mAnimation;
+
     public MemoRecyclerAdapter(Cursor cursor) {
         mCursor = cursor;
     }
@@ -62,6 +66,10 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
                 return true;
             }
         });
+
+        if (mAnimation == null) {
+            mAnimation = AnimationUtils.loadAnimation(parent.getContext(), R.anim.translation);
+        }
         return holder;
     }
 
@@ -77,6 +85,10 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
         holder.title.setText(title);
         holder.memo.setText(memo);
         holder.date.setText(date);
+
+        if (mAnimation != null) {
+            holder.itemView.startAnimation(mAnimation);
+        }
     }
 
     @Override
