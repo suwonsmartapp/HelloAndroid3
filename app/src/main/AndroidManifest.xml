@@ -111,6 +111,7 @@
         <activity android:name=".permission.PermissionsActivity" />
         <activity android:name=".touch.TouchExamActivity" />
         <activity android:name=".smooch_slack_whispers_chatting.SuperChatActivity" />
+        <activity android:name=".exam_parsing.RetrofitActivity" />
 
         <!-- GCM -->
         <receiver

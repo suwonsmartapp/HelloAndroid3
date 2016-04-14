@@ -44,9 +44,12 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'io.smooch:core:latest.release'
-    compile 'io.smooch:ui:latest.release'
+//    compile 'com.squareup.okhttp:okhttp:2.4.0'
+//    compile 'io.smooch:core:latest.release'
+//    compile 'io.smooch:ui:latest.release'
+
+    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

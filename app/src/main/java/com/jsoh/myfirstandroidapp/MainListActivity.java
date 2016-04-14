@@ -19,6 +19,7 @@ import com.jsoh.myfirstandroidapp.exam_lifecycle.LifeCycleActivity;
 import com.jsoh.myfirstandroidapp.exam_listview.ListViewActivity;
 import com.jsoh.myfirstandroidapp.exam_parsing.GsonActivity;
 import com.jsoh.myfirstandroidapp.exam_parsing.JsonParsingActivity;
+import com.jsoh.myfirstandroidapp.exam_parsing.RetrofitActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.AsyncTaskActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.ThreadActivity;
 import com.jsoh.myfirstandroidapp.exam_viewpager.ScreenSlideActivity;
@@ -100,6 +101,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "권한 체크", PermissionExamActivity.class);
         addItem(myData, "터치 이벤트", TouchExamActivity.class);
         addItem(myData, "슈퍼 채팅 앱", SuperChatActivity.class);
+        addItem(myData, "Retrofit 라이브러리", RetrofitActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
