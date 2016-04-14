@@ -50,9 +50,7 @@ public class RetrofitActivity extends AppCompatActivity implements Callback<List
                 .baseUrl("http://suwonsmartapp.iptime.org/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        WeatherService service = retrofit.create(WeatherService.class);
-
-        final Call<List<Weather>> call = service.getWeatherList("ojs");
+        final WeatherService service = retrofit.create(WeatherService.class);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -60,14 +58,14 @@ public class RetrofitActivity extends AppCompatActivity implements Callback<List
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        call.enqueue(RetrofitActivity.this);
+                        service.getWeatherList("ojs").enqueue(RetrofitActivity.this);
                     }
                 }, 3000);
 
             }
         });
 
-        call.enqueue(this);
+        service.getWeatherList("ojs").enqueue(this);
     }
 
     @Override
