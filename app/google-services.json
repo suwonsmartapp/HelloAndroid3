@@ -15,7 +15,20 @@
           "certificate_hash": []
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "136174942337-hs8hstl14joaarue8a86ae7gti56tpnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jsoh.myfirstandroidapp",
+            "certificate_hash": "A5D8416D4CD468118AD46F031039476D54B34A85"
+          }
+        },
+        {
+          "client_id": "136174942337-8a9i5kfv75s2utasbpejg4vkqu6gbv5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [],
       "services": {
         "analytics_service": {
@@ -30,7 +43,7 @@
           "other_platform_oauth_client": []
         },
         "google_signin_service": {
-          "status": 1
+          "status": 2
         },
         "ads_service": {
           "status": 1

@@ -27,11 +27,12 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- Facebook sdk 끝 -->
 
         <activity android:name=".MainListActivity">
@@ -141,7 +142,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".social_login.FacebookLoginActivity"></activity>
+        <activity android:name=".social_login.FacebookLoginActivity" />
+        <activity android:name=".social_login.GoogleLoginActivity"></activity>
     </application>
 
 </manifest>
