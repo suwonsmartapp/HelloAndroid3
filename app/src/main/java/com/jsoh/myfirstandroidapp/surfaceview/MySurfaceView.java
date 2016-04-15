@@ -17,6 +17,7 @@ import android.view.SurfaceView;
 
 import com.jsoh.myfirstandroidapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable, SensorEventListener {
@@ -92,10 +93,21 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     int x = 0;
     int y = 0;
 
+    long mTime = 0;
+    List<Missile> mMissileList;
+
     @WorkerThread
     @Override
     public void run() {
+        mMissileList = new ArrayList<>();
+        mTime = System.currentTimeMillis();
         while (mThread != null) {
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             // 화면을 lock 하고 그 순간의 canvas를 얻는다
             Canvas canvas = mSurfaceHolder.lockCanvas();
 
@@ -103,6 +115,18 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                 // 그리기
                 canvas.drawColor(Color.RED);
                 canvas.drawCircle(mPitch, mRoll, 50, mPaint);
+
+                if (System.currentTimeMillis() - mTime > 1000) {
+                    mTime = System.currentTimeMillis();
+                    Missile missile = new Missile();
+                    missile.setTarget(mPitch, mRoll);
+                    mMissileList.add(missile);
+                }
+
+                // 미사일들
+                for (Missile missile : mMissileList) {
+                    missile.draw(canvas);
+                }
 
                 // 화면에 반영
                 mSurfaceHolder.unlockCanvasAndPost(canvas);
