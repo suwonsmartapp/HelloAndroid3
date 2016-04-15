@@ -5,10 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -18,6 +23,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
 
     private CallbackManager mCallbackManager;
     private LoginButton mLoginButton;
+    private ProfileTracker mProfileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +38,25 @@ public class FacebookLoginActivity extends AppCompatActivity {
         mCallbackManager = CallbackManager.Factory.create();
 
         mLoginButton = (LoginButton) findViewById(R.id.login_button);
-        mLoginButton.setReadPermissions("email");
+        mLoginButton.setReadPermissions("email", "user_friends");
         mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(FacebookLoginActivity.this, "성공", Toast.LENGTH_SHORT).show();
+
+                /* make the API call */
+                new GraphRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        "/" + loginResult.getAccessToken().getUserId() + "/friends",
+                        null,
+                        HttpMethod.GET,
+                        new GraphRequest.Callback() {
+                            public void onCompleted(GraphResponse response) {
+                                /* handle the result */
+                                Toast.makeText(FacebookLoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                ).executeAsync();
             }
 
             @Override
