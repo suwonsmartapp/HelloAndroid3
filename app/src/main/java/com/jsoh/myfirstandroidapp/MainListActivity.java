@@ -30,6 +30,7 @@ import com.jsoh.myfirstandroidapp.notepad.activities.NoteMainActivity;
 import com.jsoh.myfirstandroidapp.permission.PermissionExamActivity;
 import com.jsoh.myfirstandroidapp.service.ServiceMainActivity;
 import com.jsoh.myfirstandroidapp.smooch_slack_whispers_chatting.SuperChatActivity;
+import com.jsoh.myfirstandroidapp.social_login.FacebookLoginActivity;
 import com.jsoh.myfirstandroidapp.surfaceview.CompassActivity;
 import com.jsoh.myfirstandroidapp.surfaceview.SurfaceViewExamActivity;
 import com.jsoh.myfirstandroidapp.touch.TouchExamActivity;
@@ -102,6 +103,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "터치 이벤트", TouchExamActivity.class);
         addItem(myData, "슈퍼 채팅 앱", SuperChatActivity.class);
         addItem(myData, "Retrofit 라이브러리", RetrofitActivity.class);
+        addItem(myData, "Facebook 로그인", FacebookLoginActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
