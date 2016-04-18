@@ -25,6 +25,9 @@ android {
         jumboMode = true // Fixed java.lang.OutOfMemoryError: GC overhead limit exceeded
         javaMaxHeapSize "2g" // Fixed java.lang.OutOfMemoryError: GC overhead limit exceeded
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
