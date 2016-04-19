@@ -26,6 +26,7 @@ import com.jsoh.myfirstandroidapp.exam_viewpager.ScreenSlideActivity;
 import com.jsoh.myfirstandroidapp.exam_webview.WebViewActivity;
 import com.jsoh.myfirstandroidapp.load_picture.PictureActivity;
 import com.jsoh.myfirstandroidapp.load_picture.PictureNetworkActivity;
+import com.jsoh.myfirstandroidapp.map.MapsActivity;
 import com.jsoh.myfirstandroidapp.notepad.activities.NoteMainActivity;
 import com.jsoh.myfirstandroidapp.permission.PermissionExamActivity;
 import com.jsoh.myfirstandroidapp.service.ServiceMainActivity;
@@ -106,6 +107,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "Retrofit 라이브러리", RetrofitActivity.class);
         addItem(myData, "Facebook 로그인", FacebookLoginActivity.class);
         addItem(myData, "Google 로그인", GoogleLoginActivity.class);
+        addItem(myData, "Google Map", MapsActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬

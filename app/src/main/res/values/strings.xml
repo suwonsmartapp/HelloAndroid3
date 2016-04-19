@@ -72,4 +72,5 @@
 
     <!-- Facebook App ID -->
     <string name="facebook_app_id">1710015842612170</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
