@@ -12,6 +12,10 @@ android {
         versionName "1.0"
         multiDexEnabled true
         // Fixed com.android.dex.DexIndexOverflowException: method ID not in [0, 0xffff]: 65536
+
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
@@ -23,11 +27,17 @@ android {
         maven { url 'http://junsuk5.github.io/AsyncBitmapLoader/repository' }
     }
     dexOptions {
+        incremental true
+        maxProcessCount 4
         jumboMode = true // Fixed java.lang.OutOfMemoryError: GC overhead limit exceeded
         javaMaxHeapSize "2g" // Fixed java.lang.OutOfMemoryError: GC overhead limit exceeded
     }
     dataBinding {
-        enabled = true
+        enabled = false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
