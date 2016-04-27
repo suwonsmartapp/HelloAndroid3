@@ -165,7 +165,8 @@
 
         <activity
             android:name=".map.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".exam_parsing.InsertActivity"></activity>
     </application>
 
 </manifest>

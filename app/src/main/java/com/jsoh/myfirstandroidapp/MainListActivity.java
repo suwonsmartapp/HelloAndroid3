@@ -18,6 +18,7 @@ import com.jsoh.myfirstandroidapp.exam_fragment.exam2.Exam212Activity;
 import com.jsoh.myfirstandroidapp.exam_lifecycle.LifeCycleActivity;
 import com.jsoh.myfirstandroidapp.exam_listview.ListViewActivity;
 import com.jsoh.myfirstandroidapp.exam_parsing.GsonActivity;
+import com.jsoh.myfirstandroidapp.exam_parsing.InsertActivity;
 import com.jsoh.myfirstandroidapp.exam_parsing.JsonParsingActivity;
 import com.jsoh.myfirstandroidapp.exam_parsing.RetrofitActivity;
 import com.jsoh.myfirstandroidapp.exam_thread.AsyncTaskActivity;
@@ -108,6 +109,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "Facebook 로그인", FacebookLoginActivity.class);
         addItem(myData, "Google 로그인", GoogleLoginActivity.class);
         addItem(myData, "Google Map", MapsActivity.class);
+        addItem(myData, "날씨 추가", InsertActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬

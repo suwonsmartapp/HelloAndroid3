@@ -13,9 +13,9 @@ android {
         multiDexEnabled true
         // Fixed com.android.dex.DexIndexOverflowException: method ID not in [0, 0xffff]: 65536
 
-        jackOptions {
-            enabled true
-        }
+//        jackOptions {
+//            enabled true
+//        }
     }
     buildTypes {
         release {
@@ -33,12 +33,12 @@ android {
         javaMaxHeapSize "2g" // Fixed java.lang.OutOfMemoryError: GC overhead limit exceeded
     }
     dataBinding {
-        enabled = false
+        enabled = true
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {
