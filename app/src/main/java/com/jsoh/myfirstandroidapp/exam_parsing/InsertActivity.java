@@ -2,6 +2,7 @@ package com.jsoh.myfirstandroidapp.exam_parsing;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,15 +42,18 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
         String weather = ((EditText)findViewById(R.id.weather)).getText().toString();
         String temperature = ((EditText)findViewById(R.id.temperature)).getText().toString();
 
-        mWeatherService.insertWeather("ojs", weather, country, temperature).enqueue(new Callback<Result>() {
+        Call<Result> call = mWeatherService.insertWeather("ojs", weather, country, temperature);
+
+        call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                Toast.makeText(InsertActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(InsertActivity.this, response.body().getResult(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
                 Toast.makeText(InsertActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onFailure: " + t);
             }
         });
     }
